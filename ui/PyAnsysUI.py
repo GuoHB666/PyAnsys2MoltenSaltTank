@@ -17,7 +17,7 @@ class PyAnsysUI(QObject):
         self.scripts_folder = path_prj / "software" / "scripts"
         self.result_folder = path_prj / "result"
         self.constant_folder = path_prj / "constant"
-        self.mat_xmls = [self.constant_folder/"mat_FEM_solid.xml", self.constant_folder/ "mat_FEM_fluid.xml"]
+        self.mat_files = [self.constant_folder / "mat_FEM_solid.xml", self.constant_folder / "mat_FEM_fluid.xml", self.constant_folder / "mat_CFD.scm"]
         self.template_script = {
             "geo_content": self.scripts_folder / "templates" / "geo_content.py",
             "fluent_content": self.scripts_folder / "templates" / "fluent_content.jou",
@@ -30,7 +30,7 @@ class PyAnsysUI(QObject):
         # 图形化显示涉及到的类
         self.tree_logic = TreeLogic(self.ui)
         self.geo_logic = GeoLogic(self.ui, self.template_script)
-        self.mat_logic = MatLogic(self.ui, self.mat_xmls, self.template_script)
+        self.mat_logic = MatLogic(self.ui, self.mat_files, self.template_script)
         self.simulation_logic = SimulationLogic(self.ui,self.ansys_simulation)
         self.visual_logic = VisualLogic(self.ui)
         # UI初始化

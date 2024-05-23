@@ -4,11 +4,14 @@ import xml.etree.ElementTree as ET
 from PyQt5.QtCore import QObject
 from .info_alert import info_alert
 from .script_builder import script_builder
+from pathlib import Path
 class MatLogic(QObject):
-    def __init__(self, ui, mat_xmls, script_template):
+    def __init__(self, ui, mat_files, script_template):
         super().__init__()
         self.ui = ui
-        self.all_materials = [self.mat_xml_reader(mat_xml) for mat_xml in mat_xmls]
+        self.filemat_FEM = mat_files[0:-1]
+        self.filemat_CFD = mat_files[-1]
+        self.get_materials = [self.mat_xml_reader(filemat) for filemat in self.filemat_FEM]
         self.bodymats_default = {
             "ambient_soil": "dry_sand",
             "insulation1": "magnesium_silicate",
@@ -42,7 +45,7 @@ class MatLogic(QObject):
         self.mats2show()
         # 材料库打印到list控件里中
         all_mat_names = []
-        for materials in self.all_materials:
+        for materials in self.get_materials:
             all_mat_names = all_mat_names + list(materials.keys())
         self.ui.mat_all_list.addItems(all_mat_names)
 
@@ -111,7 +114,7 @@ class MatLogic(QObject):
         return sorted_materials
     def mats2show(self):
         mat_tables = [self.ui.table_mat_solid, self.ui.table_mat_fluid]
-        for materials, mat_table in zip(self.all_materials, mat_tables):
+        for materials, mat_table in zip(self.get_materials, mat_tables):
             row = mat_table.rowCount()
             # 打印材料参数
             for mat_name, properties in materials.items():
@@ -151,7 +154,7 @@ class MatLogic(QObject):
             column = item.column() -1 # 列数，不考虑列名
             if item.text() == "Tabular":
                 # 获取所有的固体/材料参数
-                allmat_infos = self.all_materials[0] if "solid" in tab_mat_name else self.all_materials[1]
+                allmat_infos = self.get_materials[0] if "solid" in tab_mat_name else self.get_materials[1]
                 allmat_names = list(allmat_infos.keys())
                 allmat_names.reverse() # 表格控件逐行添加后，会导致表格行数和字典键值对序号发生偏移，需要在这里反向下
                 # 获取到选中材料的行的属性
@@ -224,29 +227,38 @@ class MatLogic(QObject):
             script_infos = [
                 {
                     "template_name": "fluent_content",
-                    "cmd_key": ["define solid_zone_names", "define solid_mats"],
+                    "cmd_keys": ["define mat_path"],
+                    "items": [self.filemat_CFD],
+                    "cmd_complete": "({key_str} \"{item_str}\")\n"
+                },
+                {
+                    "template_name": "fluent_content",
+                    "cmd_keys": ["define solid_zone_names", "define solid_mats"],
                     "items": [list(bodymats_custom.keys()), list(bodymats_custom.values())],
                     "cmd_complete": "({key_str} '({item_str}))\n"
                 },
                 {
                     "template_name": "mechanical_content",
-                    "cmd_key": ["body_mats = "],
+                    "cmd_keys": ["body_mats = "],
                     "items": [bodymats_custom],
                     "cmd_complete": "{key_str}{item_str}\n"
                 }
             ]
             for script_info in script_infos:
-                file_template = self.script_template[script_info["template_name"]]
-                script_paths = [file_template, file_template.parent.parent / file_template.name]
-                for cmd_key, item_list in zip(script_info["cmd_key"], script_info["items"]):
-                    if isinstance(item_list, dict):
-                        item_str = item_list  # 对于字典类型的，在mechanical中使用，可直接使用
+                file_origin = self.script_template[script_info["template_name"]]
+                file_new = file_origin.parent.parent / file_origin.name
+                # 定义脚本路径：若已经生成自定义脚本，则不再是查找模板脚本、生成新脚本，而是查找已有的自定义脚本
+                script_paths = [file_origin, file_new] if not file_new.exists() else [file_new, file_new]
+                for cmd_keys, item in zip(script_info["cmd_keys"], script_info["items"]):
+                    if isinstance(item, dict):
+                        item_cmd = item  # 对于字典类型的，在mechanical中使用，可直接使用
+                    elif isinstance(item,list):
+                        item_cmd = ' '.join(f'"{item}"' for item in item) # 对于列表类型的，在fluent中使用，需先转换成字符串
                     else:
-                        item_str = ' '.join(f'"{item}"' for item in item_list) # 对于列表类型的，在fluent中使用，需先转换成字符串
-                    cmd_complete = script_info["cmd_complete"].format(key_str=cmd_key, item_str=item_str)
-                    is_success = script_builder(script_paths, cmd_key, cmd_complete)
+                        item_cmd = str(item.absolute())
+                    cmd_completes = script_info["cmd_complete"].format(key_str=cmd_keys, item_str=item_cmd)
+                    is_success = script_builder(script_paths, cmd_keys, cmd_completes)
         info_alert("mat", is_success)
-
     @staticmethod
     # 通过科学计数法表示数据
     def format_data(data):

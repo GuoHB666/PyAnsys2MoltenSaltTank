@@ -11,8 +11,8 @@
 (define fluid_mats ' ("air_ideal" "air_idea" "molten_salt"))
 
 ; 固体域名称及其材料：需一一对应
-(define solid_zone_names '("ambient_soil" "insulation1" "insulation2" "base3" "base2" "base4" "base1" "base5" "tank"))
-(define solid_mats '("dry-sand" "magnesium_silicate" "glass_wool" "gravel" "ceramsite-hm" "ceramsite_concrete-hm" "fine-gravel" "firebrick" "tp347h"))
+(define solid_zone_names '("ambient_soil" "insulation1" "insulation2" "base3" "base2" "base4" "base1" "base5" "tank_test"))
+(define solid_mats '("dry-sand" "magnesium_silicate" "glass_wool" "gravel" "ceramsite-hm" "ceramsite_concrete-hm" "fine-gravel" "firebrick" "tp347h_test"))
 
 ;已有的边界条件命名，需保证和生成CFD计算的网格的命令一致
 (define wall_boundaries '("axis" "wall_ambient_boundary" "wall_ambient_fluid" "wall_inner_salt2air" "wall_inner_fluid")) 
