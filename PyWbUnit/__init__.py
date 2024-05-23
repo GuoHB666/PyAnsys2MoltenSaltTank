@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-#                            Package   : PyWbUnit
-# __init__.py                Created on: 2021/06/14
-#                            Author    : guangsheng.tian
-#                            Email     : tguangs@163.com
-#
-#    Copyright (C) 2019-2022 guangsheng.tian
 
 from .CoWbUnit import (CoWbUnitProcess, WbServerClient,
                            __version__, __author__)
