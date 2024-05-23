@@ -1,0 +1,29 @@
+/* XPM */
+static char * cameraEye_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 7 1 0 0",
+/* colors */
+" 	s none	m none	c none",
+".	s iconColor1	m black	c black",
+"X	s iconGray4	m white	c #949494949494",
+"o	s iconGray3	m white	c #adadadadadad",
+"O	s iconGray1	m white	c #dededededede",
+"+	s iconColor2	m white	c white",
+"@	s iconGray5	m black	c #737373737373",
+/* pixels */
+"                ",
+"                ",
+"                ",
+"                ",
+"     ......     ",
+"    .XoOOoX.    ",
+"   .o......o.   ",
+"  ...o.+..o...  ",
+"  ..O+....+O.   ",
+"   .@+O..OO@.   ",
+"    .@o++o@.    ",
+"     ......     ",
+"                ",
+"                ",
+"                ",
+"                "};

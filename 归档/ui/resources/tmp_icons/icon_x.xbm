@@ -1,0 +1,4 @@
+#define icon_x_width 5
+#define icon_x_height 5
+static unsigned char icon_x_bits[] = {
+   0x11, 0x0a, 0x04, 0x0a, 0x11};

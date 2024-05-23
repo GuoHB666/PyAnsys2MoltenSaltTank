@@ -1,0 +1,31 @@
+/* XPM */
+static char *cmNeeded[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 8 1",
+/* colors */
+"  c #000000",
+". c #FFFBF0",
+"X c None",
+"o c #A08000",
+"O c #FFFFFF",
+"+ c #FFFF00",
+"@ c #80C0C0",
+"# c #A0A0A4",
+/* pixels */
+"XX          XXXX",
+"X .O@OO++++oXXXX",
+"     O++++o XXXX",
+" @@ O++++o  XXXX",
+" @@ O+++o   XXXX",
+"   O+++o@   XXXX",
+" @@O++oooo  XXXX",
+" @O++++++o      ",
+"  O++++.oOOOOOO ",
+" @@ O++oO##O##O ",
+" @@O++oOOOOOOOO ",
+"  O++o O####O#O ",
+"XOO++X OOOOOOOO ",
+"XO++oX O##O###O ",
+"XOooXX OOOOOOOO ",
+"XXXXXX          "
+};

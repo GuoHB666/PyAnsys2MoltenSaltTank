@@ -1,0 +1,135 @@
+
+
+
+/file/set-tui-version "21.2"
+
+; change temperature units into celsius system
+/define/units/temperature c
+
+
+; enable axisymmetry analysis
+/define/models/axisymmetric? yes
+
+; check for negative volumn
+/mesh/check
+; mesh repaire for axisymmetric analysis
+/mesh/repair-improve/repair 
+; check for negative volumn
+/mesh/check
+
+
+; enable gravity
+
+/define/operating-conditions/gravity yes -9.81 
+
+; enable steady calculation
+
+ 
+
+
+; enable radiation equation and energy equation
+
+/define/models/radiation/p1 yes
+
+
+; set turbulance model as k-e Realizable Enhanced Wall treatment, Full Buoyancy Effects
+
+/define/models/viscous/ke-realizable yes 
+/define/models/viscous/near-wall-treatment/enhanced-wall-treatment yes
+/define/models/viscous/turb-buoyancy-effects 2 
+
+
+
+; import and appoint material
+;; import
+
+/define/materials/data-base/database-type user-defined "D:\GuoHB\MyFiles\Code\PyAnsysWorkbench\data\constant\FluentMaterialData.scm" 
+/define/materials/copy fluid air-new
+/define/materials/copy fluid molten_salt
+/define/materials/copy solid tp347h
+/define/materials/copy solid ceramsite 
+/define/materials/copy solid ceramsite_concrete 
+/define/materials/copy solid fine-gravel 
+/define/materials/copy solid gravel 
+/define/materials/copy solid firebrick 
+/define/materials/copy solid magnesium_silicate 
+/define/materials/copy solid glass_wool
+
+;; appoint
+
+/define/boundary-conditions/set/fluid fluid-fluid_air () material yes air-new quit 
+/define/boundary-conditions/set/fluid fluid-fluid_salt () material yes molten_salt quit 
+/define/boundary-conditions/set/solid solid1-tank () material yes tp347h quit 
+/define/boundary-conditions/set/solid solid1-tank solid2-insulation_outer solid2-base_concrete_1_ solid2-base_ceramsite solid2-base_firebrick solid2-base_concrete_2_ solid2-base_concrete_3_ solid2-insulation_inner solid2-base_gravel solid1-tank () quit 
+/define/boundary-conditions/set/solid solid1-tank () material yes tp347h quit 
+/define/boundary-conditions/set/solid solid2-base_fine () material yes fine-gravel quit 
+/define/boundary-conditions/set/solid solid2-insulation_outer () material yes glass_wool quit 
+/define/boundary-conditions/set/solid solid2-base_concrete_1_ solid2-base_concrete_2_ solid2-base_concrete_3_ () material yes ceramsite_concrete quit 
+/define/boundary-conditions/set/solid solid2-base_ceramsite () material yes ceramsite quit 
+/define/boundary-conditions/set/solid solid2-base_firebrick () material yes firebrick quit 
+/define/boundary-conditions/set/solid solid2-insulation_inner () material yes magnesium_silicate quit 
+/define/boundary-conditions/set/solid solid2-base_gravel () material yes gravel quit 
+
+; boundary conditions
+
+/define/boundary-conditions/wall wall_fluid_couple 0 no 0. no no no no no 0.95 no 0. no 0.5 no 1
+/define/boundary-conditions/wall wall_wind_top 0. no 0. no yes mixed no 10.1 no -8 no 0.3 no -8 no 1 
+/define/boundary-conditions/wall wall_wind_vertical 0. no 0. no yes mixed no 7.4 no -8 no 0.3 no -8 no 1 
+/define/boundary-conditions/wall wall_base_bottom 0. no 0. no yes convection no 2 no -8 no 1
+
+; enlarge turbulent limits for natural convection
+
+/solve/set/limits , , , , , , 1e8
+
+; solution and discretization shceme: couple, Presto!
+
+/solve/set/p-v-coupling 24
+/solve/set/discretization-scheme/pressure 14
+
+
+
+; convergent criteria define
+
+/solve/report-definitions/add qtotal surface-integral field heat-flux surface-names wall_tank_top-bond_1-src wall_tank_vertical_unwetted-bond_1-src wall_tank_vertical_wet-bond_2-src wall_tank_bottom-bond_2-src () per-surface? yes quit
+/solve/report-definitions/add nu surface-areaavg field nusselt-number surface-names wall_fluid_air-bond_1-trg wall_fluid_salt-bond_2-trg () per-surface? yes quit
+/solve/convergence-conditions/ conv-reports add condition-nu report-defs nu stop-criterion 0.001 active? yes quit quit quit
+/solve/convergence-conditions/ conv-reports add condition-qtotal report-defs qtotal stop-criterion 0.001 active? yes quit quit quit
+
+
+
+; steady initialization and calculation
+
+/solve/initialize/hyb-initialization yes
+/solve/patch fluid-fluid_salt fluid-fluid_air () temperature 512.6
+
+
+
+
+/solve/iterate 500 yes
+
+;; steady cloud display and enable zone selection
+/display/objects/create contour contour field temperature field temperature surfaces-list () color-map format "%0.2f" quit quit'
+
+
+
+; enable unsteady
+/define/models/unsteady-1st-order? yes
+
+; convergent criteria redefine for unsteady situation
+/solve/convergence-conditions/ check-for 2 quit
+
+; retain calculation result
+/file/auto-save/save-data-file-every flow-time
+/file/auto-save/data-frequency 60
+/file/auto-save/append-file-name-with flow-time 0 ; setting export file format
+
+; trasient result export
+/file/transient-export/ascii "allsolid_temp.txt" solid1-tank solid2-base_fine solid2-insulation_outer solid2-base_concrete_1_ solid2-base_ceramsite solid2-base_firebrick solid2-base_concrete_2_ solid2-base_concrete_3_ solid2-insulation_inner solid2-base_gravel () temperature quit no no "allsolid_temp" flow-time 3600 flow-time 1
+/file/transient-export/ascii "tank_temp.txt" solid1-tank () temperature quit no no "tank_temp" flow-time 3600 flow-time 1
+/file/transient-export/ascii "salt_result.txt" fluid-fluid_salt () velocity-magnitude temperature quit no no "salt_result" flow-time 3600 flow-time 1
+
+
+; run unsteady calculation
+/solve/set/transient-controls/time-step-size 10
+/solve/set/transient-controls/number-of-time-steps 360
+/solve/dual-time-iterate , , 2 ok

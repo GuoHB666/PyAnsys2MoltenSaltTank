@@ -1,0 +1,29 @@
+/* XPM */
+static char *saveInlet[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+"  c #000000",
+". c #E0A0C0",
+"X c #C0C0C0",
+"o c none",
+"O c #80C0C0",
+"+ c #A0A0A4",
+/* pixels */
+"         ooooooo",
+"  XXXXX  ooooooo",
+"  XXXXX  ooooooo",
+"  XXXXX  ooooooo",
+"         ooooooo",
+"               o",
+"  +++XX  OOOOOO ",
+"  +++XX   OOOOOO",
+"         . OOOOO",
+"         .. OOOO",
+"oooooo .OO.. OOO",
+"oooooo . OO.. OO",
+"oooo      O..   ",
+"oooooo . OO.. OO",
+"ooooooo .OO.. OO",
+"oooooooo .... OO"
+};

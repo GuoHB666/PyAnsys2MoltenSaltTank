@@ -1,0 +1,59 @@
+
+
+;; change temperature units into celsius system
+/define/units/temperature c 
+
+;; check for negative volumn
+/mesh/check
+
+;; enable gravity
+/define/operating-conditions/gravity yes 0. 9.800000000000001 0. 
+
+;; enable radiation equation and energy equation
+/define/models/radiation/p1 yes
+
+;; set turbulance model as k-e Realizable Enhanced Wall treatment, Full Buoyancy Effects
+/define/models/viscous/ke-realizable yes 
+/define/models/viscous/near-wall-treatment/enhanced-wall-treatment yes
+/define/models/viscous/turb-buoyancy-effects 2 
+
+
+;; import and appoint material
+/define/materials/data-base/database-type user-defined "D:\GuoHB\MyFiles\Simulation\MoltenSaltTank2021-v3\Constant\FluentMaterialData9" 
+/define/materials/copy fluid air-new
+/define/materials/copy fluid molten_salt
+/define/boundary-conditions/set/fluid fluid () material yes air-new quit
+
+;; set boundary condition
+/define/boundary-conditions/set/velocity-inlet inlet () vmag no 0.1 temperature no 100 quit 
+
+;; solution and discretization shceme: SIMPLE, Presto!
+solve/set/p-v-coupling 21
+/solve/set/discretization-scheme/pressure 14 
+
+;; initialization
+/solve/initialize/hyb-initialization yes 
+
+;; set iteration time and start to solve
+/solve/iterate 500
+;; contour view: 1. view define; 2. disable grid-plane and reflection view
+/display/views/read-views "D:\GuoHB\MyFiles\Simulation\Test\test_20240312_files\user_files\fluent_view.vw" ok
+/display/views/restore-view view-x0plane
+/preferences/graphics/graphics-effects/grid-plane-enabled no
+/preferences/graphics/graphics-effects/reflections-enabled no
+
+;; post process: 1. create yz-plane; 2. create contour; 3. show contour
+/display/surface/plane-surface plane-x0 yz-plane 0. 
+/display/objects/create contour contour-v field velocity-magnitude surfaces-list plane-x0 () color-map format "%0.2f" quit quit
+/display/objects/create contour contour-t field temperature surfaces-list plane-x0 () color-map format "%0.3f" quit quit 
+/display/objects/display contour-t
+
+
+;; export case and data
+/file/write-case-data "D:\GuoHB\MyFiles\Code\PyAnsysWorkbench\data\result\fluent.cas.h5" yes
+
+;; export fluent solution result
+/file/export/ascii "D:\GuoHB\MyFiles\Code\PyAnsysWorkbench\data\result\fluent_T_2D.txt" plane-x0 () no temperature no ok
+
+;; exit
+exit 2 ok ok ok ok

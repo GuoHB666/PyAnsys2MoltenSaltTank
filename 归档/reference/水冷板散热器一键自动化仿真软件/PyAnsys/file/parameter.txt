@@ -1,0 +1,1 @@
+{'AnsysPath': 'D:\\Program Files\\ANSYS2021R2\\v212\\Framework\\bin\\Win64\\RunWB2.exe', 'AnsysWorkPath': 'D:\\GuoHB\\MyFiles\\Code\\Python\\ansysApp', 'Tube_D': '5', 'Water_T': '283.15', 'Water_V': '1', 'Hot_HeatFlux': '10000'}

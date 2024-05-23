@@ -1,0 +1,26 @@
+/* XPM */
+static char * centerview_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 4 1 -1 -1",
+/* colors */
+" 	s iconColor1	m black	c black",
+".	c None",
+"X	s iconColor2	m white	c white",
+"o	s iconGray2	m white	c #bdbdbdbdbdbd",
+/* pixels */
+" .............. ",
+". . ........ . .",
+"..  ........  ..",
+".   ........   .",
+"................",
+".......    .....",
+"...... XXo .....",
+".....    X .....",
+"..... XX X .....",
+"..... XX  ......",
+".....    .......",
+"................",
+".   ........   .",
+"..  ........  ..",
+". . ........ . .",
+" .............. "};

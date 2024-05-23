@@ -1,0 +1,23 @@
+/* XPM */
+static char*blade_xpm[]={
+"16 16 4 1",
+". c #000000",
+"a c None",
+"b c #77bbcc",
+"d c #FF99CC",
+"aaaaaaaaaaaaaaaa",
+"aa....aaa.aaaaaa",
+"a.bbbd.aaa.aaaaa",
+"a.dbbbd.aaaa.aaa",
+"aa.dbbbd.aaaa.aa",
+"aaaa.dbbd.aaa.aa",
+".aaaaa.dbd.aaa.a",
+"a.aaaaa.db.aaaa.",
+"aa.aaaaa.d.aaaa.",
+"aaa.aaaaa.d.aaaa",
+"aaaa.aaaaa.daaaa",
+"aaaaa.aaaa.daaaa",
+"aaaaa.aaaa.daaaa",
+"aaaaaa.aaa.aaaaa",
+"aaaaaa.aaaaaaaaa",
+"aaaaaa.aaaaaaaaa"};

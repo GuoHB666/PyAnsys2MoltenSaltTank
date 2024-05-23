@@ -1,0 +1,27 @@
+/* XPM */
+static char * stopsession_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 5 1 0 0",
+/* colors */
+" 	c None",
+".	c #000000",
+"X	c #8888ff",
+"o	c #ffffff",
+"O	c #bdbdbd",
+/* pixels */
+"    ........    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    ........    ",
+"                ",
+"  ....    ....  ",
+" .o....  .o.... ",
+" ..oo..  ..oo.. ",
+" ..oO..  ..oO.. ",
+" ....O.  ....O. ",
+"  ............  ",
+"                "};

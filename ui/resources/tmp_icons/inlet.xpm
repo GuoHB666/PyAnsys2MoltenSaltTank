@@ -1,0 +1,23 @@
+/* XPM */
+static char*inlet_xpm[]={
+"16 16 4 1",
+". c #000000",
+"  c None",
+"c c #77bbcc",
+"d c #FF99CC",
+"  .........     ",
+"  .d.cccccc.    ",
+"  .dd.ccccccc.  ",
+"  .dcd.cccccc.  ",
+"  .dccd.cccccc. ",
+"  .dcccd.cccccc.",
+"  .d.cccd.ccccc.",
+"......ccd.......",
+"  .d.cccd.ccccc.",
+"   .dcccd.ccccc.",
+"    .dccd.ccccc.",
+"     .dcd.cccc. ",
+"      .dd.ccccc.",
+"       .d.ccccc.",
+"        ....... ",
+"                "};

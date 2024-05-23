@@ -1,0 +1,26 @@
+/* XPM */
+static char *bladeset[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+"  c None",
+". c #FF99CC",
+"X c #77BBCC",
+/* pixels */
+"     XXX.    .  ",
+"     .XXX.    . ",
+"      .XXX.     ",
+"        .XX.    ",
+"XXX.      .X    ",
+".XXX.      .    ",
+" .XXX.      .   ",
+"   .XX.         ",
+"     .X.        ",
+"      .X        ",
+"       .        ",
+"        .       ",
+"         .      ",
+"         .      ",
+"         .      ",
+"                "
+};

@@ -1,0 +1,179 @@
+;============================== fluent definition ==============================;
+(define init_salt_temp 512.5)
+(define init_ambient_temp -8)
+(define radia_salt2air 0.95)
+(define simulate_hour 2) ; 求解时间，单位h
+(define time_step 10) ; 时间步长，取为10s
+(define export_time 600) ; 导出数据的时间步长
+(define export_file "CFD_Temp.txt")
+(define mat_path "D:\GuoHB\MyFiles\Simulation\HMChargeSimulation\Constant\FluentMaterialData11.scm")
+(define fluid_zone_names '("ambient_fluid" "inventory_air" "inventory_salt"))
+(define fluid_mats ' ("air_ideal" "air_idea" "molten_salt"))
+
+; 固体域名称及其材料：需一一对应
+(define solid_zone_names '("ambient_soil" "insulation1" "insulation2" "base3" "base2" "base4" "base1" "base5" "tank"))
+(define solid_mats '("dry-sand" "magnesium_silicate" "glass_wool" "gravel" "ceramsite-hm" "ceramsite_concrete-hm" "fine-gravel" "firebrick" "tp347h"))
+(define wall_boundaries '("axis" "wall_ambient_boundary" "wall_ambient_fluid" "wall_inner_salt2air" "wall_inner_fluid")) ;已有的边界条件命名，需保证和生成CFD计算的网格的命令一致
+(define zone_type "solid") ; 初始类型为"solid"，之后执行完solid区域的命令，再转换为fluid
+
+; function definition
+;; string to list 
+(define split
+	(lambda (str sep)
+		(define loop (lambda (str sep result)
+		  (let ((l_str (string-length str)) (l_sep (string-length sep)))
+			(cond
+			  ((< l_str l_sep)  (cons (string-append (car result) (substring str 0 1) ) (cdr result)))
+			  ((= l_str l_sep)
+			   (cond
+				 ((string=? (substring str 0 l_sep) sep) result)
+				 (else (cons (string-append (car result) (substring str 0 l_sep) ) (cdr result)))))
+			  (else (cond
+				  ((string=? (substring str 0 l_sep) sep) (loop (substring str l_sep l_str) sep (cons "" result)))
+				  (else (loop (substring str 1 l_str) sep (cons (string-append (car result) (substring str 0 1) ) (cdr result))))))))))
+	(reverse (loop str sep '("")))))
+
+
+;;  string contain function
+(define (string-contains? strs substr)
+  ; 定义一个函数，接受两个字符串参数，用于判断一个字符串是否包含另一个字符串
+	(let ((len-substr (string-length substr))  ; 获取子字符串的长度
+        (len-strs (string-length strs)))    ; 获取目标字符串的长度
+	(let loop ((i 0))  ; 定义一个递归函数来遍历目标字符串的每个可能的子字符串
+	  (cond
+		((> (+ i len-substr) len-strs) #f)  ; 如果子字符串长度加上当前位置超过了目标字符串长度，则返回 #f
+		((string=? (substring strs i (+ i len-substr)) substr) #t)  ; 每次取和字符串长度相等的原字符串片段，进行比较
+		(else (loop (+ i 1))))
+	)))  ; 否则，递归调用自身，检查下一个可能的子字符串
+
+;; 2. get wall boundaries containing specific name
+(define (get-geonames entity_type short_name)
+  (let ((zone-data ""))
+    (for-each
+		(lambda (name)
+			(define name_str (if (symbol? name) (symbol->string name) ""))
+			(define type_str (if (symbol? (zone-type (get-zone name))) (symbol->string (zone-type (get-zone name))) ""))
+			(if (and (equal? entity_type "body") (or (equal? type_str "fluid") (equal? type_str "solid")))
+				(if (string-contains? name_str short_name) (set! zone-data (format #f "~a ~a" zone-data name_str)))
+				(if (equal? entity_type type_str) (if (string-contains? name_str short_name) (set! zone-data (format #f "~a ~a" zone-data name_str))))
+			))
+	(inquire-zone-names))
+	zone-data))
+
+
+(define (zone-definition type short_name mat)
+	(define zone_long_name (get-geonames "body" short_name))
+	(ti-menu-load-string (format #f "/define/boundary-conditions/zone-type ~a ~a" zone_long_name type))
+	(ti-menu-load-string (format #f "/define/boundary-conditions/set/~a ~a () material yes ~a quit" type zone_long_name mat))
+)
+
+
+;============================== fluent command ==============================;
+; change temperature units into celsius system
+(ti-menu-load-string "/define/units/temperature c")
+; check for negative volumn
+(ti-menu-load-string "/mesh/check")
+
+; enable axisymmetry analysis
+(ti-menu-load-string "/define/models/axisymmetric? yes")
+; check for negative volumn
+(ti-menu-load-string "/mesh/check")
+; mesh repaire for axisymmetric analysis
+(ti-menu-load-string "/mesh/repair-improve/repair")
+; check for negative volumn
+(ti-menu-load-string "/mesh/check")
+
+; enable gravity
+(ti-menu-load-string "/define/operating-conditions/gravity yes -9.81")
+
+; radiation model
+(ti-menu-load-string "/define/models/radiation/s2s? yes ")
+; (ti-menu-load-string "/define/models/radiation/s2s-parameters/compute-write-vf , yes ")
+
+; set turbulance model as k-e Realizable Enhanced Wall treatment, Full Buoyancy Effects
+(ti-menu-load-string "/define/models/viscous/ke-realizable yes ")
+(ti-menu-load-string "/define/models/viscous/near-wall-treatment/enhanced-wall-treatment yes")
+(ti-menu-load-string "/define/models/viscous/turb-buoyancy-effects 2 ")
+;; turbulent limits setting
+(ti-menu-load-string "/solve/set/limits , , , , , , 1e8 ")
+
+
+
+; mat import, zone type define, mat appoint
+;; import solid and fluid mat
+(ti-menu-load-string (format #f "/define/materials/data-base/database-type user-defined \"~a\"" mat_path))
+;; solid zone and its mat
+(set! zone_type "solid")
+(do ((i 0 (+ i 1)))
+	; 循环终止条件
+    ((= i (length solid_zone_names))) 
+	; 循环内容
+    (let ((zone_short_name (list-ref solid_zone_names i))
+          (zone_mat (list-ref solid_mats i)))
+	  (ti-menu-load-string (format #f "/define/materials/copy ~a ~a\n" zone_type zone_mat)) ; mat import
+      (zone-definition zone_type zone_short_name zone_mat) ; zone type redefine and mat appoint
+	)
+)
+;; fluid zone and its mat
+(set! zone_type "fluid")
+(do ((i 0 (+ i 1)))
+	; 循环终止条件
+    ((= i (length fluid_zone_names))) 
+	; 循环内容
+    (let ((zone_short_name (list-ref fluid_zone_names i))
+          (zone_mat (list-ref fluid_mats i)))
+	  (ti-menu-load-string (format #f "/define/materials/copy ~a ~a\n" zone_type zone_mat)) ; mat import
+      (zone-definition zone_type zone_short_name zone_mat) ; zone type redefine and mat appoint
+	)
+)
+;; some operation after change zone type: generate S2S file, split interior
+(ti-menu-load-string "/mesh/modify-zones/slit-interior-between-diff-solids")
+(ti-menu-load-string "/define/models/radiation/s2s-parameters/compute-write-vf , yes ")
+
+
+
+; boundary condition definition
+(ti-menu-load-string (format #f "/define/boundary-conditions/wall *~a* () , , , , yes temperature , ~d , , , " (list-ref wall_boundaries 1) init_ambient_temp))
+;(ti-menu-load-string (format #f "/define/boundary-conditions/wall *~a* () , , , , , , , , ~d , ,, , , , , , ," (list-ref wall_boundaries 3) radia_salt2air))
+
+
+; solution and discretization shceme: couple, Presto!
+(ti-menu-load-string "/solve/set/p-v-coupling 24")
+(ti-menu-load-string "/solve/set/discretization-scheme/pressure 14") ; Presto!
+(ti-menu-load-string "/solve/set/discretization-scheme/k 1")  ; second order
+(ti-menu-load-string "/solve/set/discretization-scheme/epsilon 1")
+
+
+
+
+; convergence criteria
+(ti-menu-load-string "/solve/monitors/residual/convergence-criteria , , , 1e-09 , ,")
+
+
+
+
+; initialization
+(ti-menu-load-string (format #f "/solve/initialize/set-defaults/temperature ~d" init_ambient_temp))
+(ti-menu-load-string "/solve/initialize/initialize-flow yes")
+(ti-menu-load-string (format #f "/solve/patch *~a* () temperature ~d" (list-ref fluid_zone_names 1) (- init_salt_temp 6)))
+(ti-menu-load-string (format #f "/solve/patch *~a* () temperature ~d" (list-ref fluid_zone_names 2) init_salt_temp))
+; steady calculation
+solve/set/number-of-iterations 500
+/solve/iterate ,,,
+
+
+
+
+; run trasient calculation
+(ti-menu-load-string "/define/models/unsteady-1st-order? yes")
+;; setting export file format
+(ti-menu-load-string "/file/auto-save/save-data-file-every flow-time")
+(ti-menu-load-string (format #f "/file/auto-save/data-frequency ~d" export_time))
+(ti-menu-load-string "/file/auto-save/append-file-name-with flow-time 0")
+(ti-menu-load-string (format #f "/file/transient-export/ascii \"~a\" * () temperature () no yes , flow-time ~d flow-time 1" export_file export_time))
+
+;; simulation time and time step
+(ti-menu-load-string (format #f "/solve/set/transient-controls/time-step-size ~d" time_step))
+(ti-menu-load-string (format #f "/solve/set/transient-controls/number-of-time-steps ~d" (/ (* simulate_hour 3600) time_step)))
+;; run
+(ti-menu-load-string "/solve/dual-time-iterate , , 2 ok yes")

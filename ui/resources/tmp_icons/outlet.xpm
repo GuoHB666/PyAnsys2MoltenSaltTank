@@ -1,0 +1,23 @@
+/* XPM */
+static char*outlet_xpm[]={
+"16 16 4 1",
+". c #000000",
+"  c None",
+"b c #77bbcc",
+"d c #FF99CC",
+"                ",
+"     ........   ",
+"    .bbbbbb.d.  ",
+"   .bbbbbb.dd.  ",
+"  .bbbbbb.dbd.  ",
+"  .bbbbb.dbbd.  ",
+" .bbbbb.dbbbd.. ",
+" ..... dbbb.....",
+" .bbbb.dbbbbd.. ",
+" .bbbb.dbbbd.   ",
+" .bbbb.dbbd.    ",
+" .bbbb.dbd.     ",
+" .bbbb.dd.      ",
+" .bbbb.d.       ",
+".......         ",
+"                "};

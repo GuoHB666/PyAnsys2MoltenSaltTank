@@ -1,0 +1,991 @@
+<FluentXMLReport>
+<version>
+Fluent
+Version: axi, dp, pbns, rke (axi, double precision, pressure-based, realizable k-epsilon)
+Release: 21.2.0
+Title: 
+</version>
+
+<Models>
+
+Models
+------
+
+   Model                        Settings                                
+   ------------------------------------------------------------------
+   Space                        Axisymmetric                            
+   Time                         Steady                                  
+   Viscous                      Realizable k-epsilon turbulence model   
+   Wall Treatment               Enhanced Wall Treatment                 
+   Heat Transfer                Enabled                                 
+   Solidification and Melting   Disabled                                
+   Radiation                    Surface to Surface                      
+   Species                      Disabled                                
+   Coupled Dispersed Phase      Disabled                                
+   NOx Pollutants               Disabled                                
+   SOx Pollutants               Disabled                                
+   Soot                         Disabled                                
+   Mercury Pollutants           Disabled                                
+   Structure                    Disabled                                
+   Acoustics                    Disabled                                
+   Eulerian Wall Film           Disabled                                
+   Potential/Li-ion Battery     Disabled                                
+   Multiphase                   Disabled                                
+
+</Models>
+
+<MaterialProperties>
+Material Properties
+-------------------
+
+   Material: molten_salt (fluid)
+
+      Property                        Units      Method       Value(s)                                                                                                                               
+      --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      Density                         kg/m^3     expression   1 [kg m^-3] * (2263.72-0.64*(StaticTemperature/1[K]))                                                                                  
+      Cp (Specific Heat)              J/(kg K)   polynomial   (0 1443) (600 1546.2)                                                                                                                  
+      Thermal Conductivity            W/(m K)    expression   1 [kg m s^-3 K^-1] * (0.39+1.9E-4*(StaticTemperature/1[K]))                                                                            
+      Viscosity                       kg/(m s)   expression   1 [kg m^-1 s^-1] * (7.55E-2-2.78E-4*(StaticTemperature/1[K])+3.49E-7*(StaticTemperature/1[K])^2-1.47E-10*(StaticTemperature/1[K])^3)   
+      Molecular Weight                kg/kmol    constant     77.49064                                                                                                                               
+      Thermal Expansion Coefficient   K^-1       constant     0.00036                                                                                                                                
+      Speed of Sound                  m/s        none         #f                                                                                                                                     
+
+   Material: air_ideal-new (fluid)
+
+      Property                        Units      Method                     Value(s)                                                                   
+      ----------------------------------------------------------------------------------------------------------------------------------------------
+      Density                         kg/m^3     incompressible-ideal-gas   #f                                                                         
+      Cp (Specific Heat)              J/(kg K)   constant                   1006.43                                                                    
+      Thermal Conductivity            W/(m K)    expression                 1 [kg m s^-3 K^-1] * (6.573e-5*(StaticTemperature/1[K]-273.15) + 0.0247)   
+      Viscosity                       kg/(m s)   expression                 1 [kg m^-1 s^-1] * (3.787e-08*(StaticTemperature/1[K]-273.15)+1.742e-05)   
+      Molecular Weight                kg/kmol    constant                   28.966                                                                     
+      Thermal Expansion Coefficient   K^-1       constant                   0                                                                          
+      Speed of Sound                  m/s        none                       #f                                                                         
+
+   Material: air_ideal (fluid)
+
+      Property                        Units      Method                     Value(s)                                                                   
+      ----------------------------------------------------------------------------------------------------------------------------------------------
+      Density                         kg/m^3     incompressible-ideal-gas   #f                                                                         
+      Cp (Specific Heat)              J/(kg K)   constant                   1006.43                                                                    
+      Thermal Conductivity            W/(m K)    expression                 1 [kg m s^-3 K^-1] * (6.573e-5*(StaticTemperature/1[K]-273.15) + 0.0247)   
+      Viscosity                       kg/(m s)   expression                 1 [kg m^-1 s^-1] * (3.787e-08*(StaticTemperature/1[K]-273.15)+1.742e-05)   
+      Molecular Weight                kg/kmol    constant                   28.966                                                                     
+      Thermal Expansion Coefficient   K^-1       constant                   0                                                                          
+      Speed of Sound                  m/s        none                       #f                                                                         
+
+   Material: tp347h (solid)
+
+      Property               Units      Method       Value(s)                                                            
+      ----------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     8000                                                                
+      Cp (Specific Heat)     J/(kg K)   polynomial   (22 431) (204 490) (427 561) (649 607)                              
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (14.46+0.01387*(StaticTemperature/1[K]-273.15))   
+
+   Material: firebrick (solid)
+
+      Property               Units      Method       Value(s)                                                          
+      --------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     2050                                                              
+      Cp (Specific Heat)     J/(kg K)   constant     960                                                               
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (0.0337+1e-4*(StaticTemperature/1[K]-273.15))   
+
+   Material: fine-gravel (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   240        
+      Cp (Specific Heat)     J/(kg K)   constant   920        
+      Thermal Conductivity   W/(m K)    constant   2.04       
+
+   Material: ceramsite_concrete-hm (solid)
+
+      Property               Units      Method       Value(s)                                                                        
+      ----------------------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     1250                                                                            
+      Cp (Specific Heat)     J/(kg K)   constant     840                                                                             
+      Thermal Conductivity   W/(m K)    polynomial   (100 0.2653) (185 0.4493) (289 0.3161) (384 0.2963) (494 0.2936) (598 0.2887)   
+
+   Material: ceramsite-hm (solid)
+
+      Property               Units      Method       Value(s)                                                                        
+      ----------------------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     580                                                                             
+      Cp (Specific Heat)     J/(kg K)   constant     2476                                                                            
+      Thermal Conductivity   W/(m K)    polynomial   (110 0.1244) (201 0.1588) (293 0.1863) (396 0.2154) (491 0.2276) (577 0.2507)   
+
+   Material: gravel (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   1500       
+      Cp (Specific Heat)     J/(kg K)   constant   1050       
+      Thermal Conductivity   W/(m K)    constant   0.5        
+
+   Material: glass_wool (solid)
+
+      Property               Units      Method       Value(s)                                                                       
+      ---------------------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     48                                                                             
+      Cp (Specific Heat)     J/(kg K)   constant     1300                                                                           
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (0.046 + 0.00017*((StaticTemperature/1[K]-273.15)-70))*1.4   
+
+   Material: magnesium_silicate (solid)
+
+      Property               Units      Method       Value(s)                                                                                                             
+      -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     100                                                                                                                  
+      Cp (Specific Heat)     J/(kg K)   constant     1168                                                                                                                 
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (0.0397-2.741e-6*(StaticTemperature/1[K]-273.15)+4.526e-7*(StaticTemperature/1[K]-273.15)^2)*1.4   
+
+   Material: dry-sand (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   900        
+      Cp (Specific Heat)     J/(kg K)   constant   2500       
+      Thermal Conductivity   W/(m K)    constant   2.5        
+
+   Material: air (fluid)
+
+      Property                        Units      Method     Value(s)     
+      ----------------------------------------------------------------
+      Density                         kg/m^3     constant   1.225        
+      Cp (Specific Heat)              J/(kg K)   constant   1006.43      
+      Thermal Conductivity            W/(m K)    constant   0.0242       
+      Viscosity                       kg/(m s)   constant   1.7894e-05   
+      Molecular Weight                kg/kmol    constant   28.966       
+      Thermal Expansion Coefficient   K^-1       constant   0            
+      Speed of Sound                  m/s        none       #f           
+
+   Material: aluminum (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   2719       
+      Cp (Specific Heat)     J/(kg K)   constant   871        
+      Thermal Conductivity   W/(m K)    constant   202.4      
+
+</MaterialProperties>
+
+<CellZoneConditions>
+Cell Zone Conditions
+--------------------
+
+   Zones
+
+      name                 id   type    
+      -------------------------------
+      __3-inventory_salt   35   fluid   
+      __3-inventory_air    34   fluid   
+      __1-ambient_fluid    26   fluid   
+      geo_tank             36   solid   
+      __2-base5            32   solid   
+      __2-base1            33   solid   
+      __2-base4            28   solid   
+      solid-__2-base2      27   solid   
+      __2-base3            29   solid   
+      __2-insulation2      30   solid   
+      __2-insulation1      31   solid   
+      __1-ambient_soil     25   solid   
+
+   Setup Conditions
+
+      __3-inventory_salt
+
+         Condition       Value   
+         ---------------------
+         Frame Motion?   no      
+         Mesh Motion?    no      
+
+      __3-inventory_air
+
+         Condition       Value           
+         -----------------------------
+         Material Name   air_ideal-new   
+         Frame Motion?   no              
+         Mesh Motion?    no              
+
+      __1-ambient_fluid
+
+         Condition       Value       
+         -------------------------
+         Material Name   air_ideal   
+         Frame Motion?   no          
+         Mesh Motion?    no          
+
+      geo_tank
+
+         Condition       Value   
+         ---------------------
+         Frame Motion?   no      
+         Mesh Motion?    no      
+
+      __2-base5
+
+         Condition       Value       
+         -------------------------
+         Material Name   firebrick   
+         Frame Motion?   no          
+         Mesh Motion?    no          
+
+      __2-base1
+
+         Condition       Value         
+         ---------------------------
+         Material Name   fine-gravel   
+         Frame Motion?   no            
+         Mesh Motion?    no            
+
+      __2-base4
+
+         Condition       Value                   
+         -------------------------------------
+         Material Name   ceramsite_concrete-hm   
+         Frame Motion?   no                      
+         Mesh Motion?    no                      
+
+      solid-__2-base2
+
+         Condition       Value          
+         ----------------------------
+         Material Name   ceramsite-hm   
+         Frame Motion?   no             
+         Mesh Motion?    no             
+
+      __2-base3
+
+         Condition       Value    
+         ----------------------
+         Material Name   gravel   
+         Frame Motion?   no       
+         Mesh Motion?    no       
+
+      __2-insulation2
+
+         Condition       Value        
+         --------------------------
+         Material Name   glass_wool   
+         Frame Motion?   no           
+         Mesh Motion?    no           
+
+      __2-insulation1
+
+         Condition       Value                
+         ----------------------------------
+         Material Name   magnesium_silicate   
+         Frame Motion?   no                   
+         Mesh Motion?    no                   
+
+      __1-ambient_soil
+
+         Condition       Value      
+         ------------------------
+         Material Name   dry-sand   
+         Frame Motion?   no         
+         Mesh Motion?    no         
+
+</CellZoneConditions>
+
+<BoundaryConditions>
+Boundary Conditions
+-------------------
+
+   Zones
+
+      name                                                                        id    type        
+      -------------------------------------------------------------------------------------------
+      contact_region_2-wall1-1-1-shadow                                           135   wall        
+      contact_region_2-wall1-1-1                                                  132   wall        
+      contact_region_2-trg-non-overlapping                                        134   wall        
+      contact_region_2-src-non-overlapping                                        133   wall        
+      contact_region_3-wall1-1-1-shadow                                           131   wall        
+      contact_region_3-wall1-1-1                                                  128   wall        
+      contact_region_3-trg-non-overlapping                                        130   wall        
+      contact_region_3-src-non-overlapping                                        129   wall        
+      contact_region_4-wall1-1-1-shadow                                           127   wall        
+      contact_region_4-wall1-1-1                                                  124   wall        
+      contact_region_4-trg-non-overlapping                                        126   wall        
+      contact_region_4-src-non-overlapping                                        125   wall        
+      contact_region_5-wall1-1-1-shadow                                           123   wall        
+      contact_region_5-wall1-1-1                                                  120   wall        
+      contact_region_5-trg-non-overlapping                                        122   wall        
+      contact_region_5-src-non-overlapping                                        121   wall        
+      contact_region_6-contact_region_7-wall1-2-1-shadow                          119   wall        
+      contact_region_6-contact_region_7-wall1-2-1                                 113   wall        
+      contact_region_6-contact_region_7-wall1-1-1-shadow                          118   wall        
+      contact_region_6-contact_region_7-wall1-1-1                                 114   wall        
+      contact_region_6-contact_region_7-trg-non-overlapping                       117   wall        
+      contact_region_6-contact_region_7-src-__2-base5-non-overlapping             115   wall        
+      contact_region_6-contact_region_7-src-__2-base3-non-overlapping             116   wall        
+      __2-base2.9-shadow                                                          106   wall        
+      __2-base2.8-shadow                                                          105   wall        
+      __2-base2.7-shadow                                                          104   wall        
+      __2-base2.6-shadow                                                          103   wall        
+      __2-base2.5-shadow                                                          102   wall        
+      __2-base2.4-shadow                                                          101   wall        
+      __2-base2.3-shadow                                                          100   wall        
+      __2-base2.2-shadow                                                          99    wall        
+      __2-base2.1-shadow                                                          98    wall        
+      __2-base2-shadow                                                            97    wall        
+      __2-base2.9                                                                 24    wall        
+      __2-base2.8                                                                 23    wall        
+      __2-base2.7                                                                 22    wall        
+      __2-base2.6                                                                 21    wall        
+      __2-base2.5                                                                 20    wall        
+      __2-base2.4                                                                 19    wall        
+      __2-base2.3                                                                 18    wall        
+      __2-base2.2                                                                 16    wall        
+      __2-base2.1                                                                 15    wall        
+      __2-base2                                                                   14    wall        
+      wall-87-shadow                                                              96    wall        
+      wall-87                                                                     87    wall        
+      wall-88-shadow                                                              95    wall        
+      wall-88                                                                     88    wall        
+      wall-38-shadow                                                              94    wall        
+      wall-38                                                                     38    wall        
+      wall-91                                                                     91    wall        
+      wall-90                                                                     90    wall        
+      wall-89                                                                     89    wall        
+      wall-69                                                                     69    wall        
+      wall-68                                                                     68    wall        
+      wall_ambient_fluid                                                          13    wall        
+      wall_inner_salt2air                                                         17    wall        
+      axis-__1-ambient_soil                                                       39    axis        
+      axis-__1-ambient_fluid                                                      40    axis        
+      axis-__2-base2                                                              41    axis        
+      axis-__2-base3                                                              42    axis        
+      axis-__2-insulation2                                                        43    axis        
+      axis-__2-insulation1                                                        44    axis        
+      axis-__2-base4                                                              45    axis        
+      axis-__2-base1                                                              46    axis        
+      axis-__3-inventory_air                                                      47    axis        
+      axis-__3-inventory_salt                                                     48    axis        
+      axis-geo_tank                                                               49    axis        
+      wall_ambient_boundary-__1-ambient_soil                                      50    wall        
+      wall_ambient_boundary-__1-ambient_fluid                                     51    wall        
+      wall_ambient_fluid-contact_region-src                                       52    interface   
+      contact_region-trg                                                          53    interface   
+      contact_region_2-src                                                        54    interface   
+      contact_region_2-trg                                                        55    interface   
+      contact_region_3-src                                                        56    interface   
+      contact_region_3-trg                                                        57    interface   
+      contact_region_4-src                                                        58    interface   
+      contact_region_4-trg                                                        59    interface   
+      contact_region_5-src                                                        60    interface   
+      contact_region_5-trg                                                        61    interface   
+      contact_region_6-contact_region_7-src-__2-base3                             62    interface   
+      contact_region_6-contact_region_7-src-__2-base5                             63    interface   
+      contact_region_6-contact_region_7-trg                                       64    interface   
+      wall_inner_fluid-contact_region_8-contact_region_9-src-__3-inventory_air    65    interface   
+      wall_inner_fluid-contact_region_8-contact_region_9-src-__3-inventory_salt   66    interface   
+      contact_region_8-contact_region_9-trg                                       67    interface   
+      wall_inner_salt2air-shadow                                                  93    wall        
+      wall_ambient_fluid-shadow                                                   92    wall        
+
+   Setup Conditions
+
+      contact_region_2-wall1-1-1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_2-wall1-1-1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_2-trg-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_2-src-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_3-wall1-1-1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_3-wall1-1-1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_3-trg-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_3-src-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_4-wall1-1-1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_4-wall1-1-1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_4-trg-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_4-src-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_5-wall1-1-1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_5-wall1-1-1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_5-trg-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_5-src-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_6-contact_region_7-wall1-2-1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_6-contact_region_7-wall1-2-1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_6-contact_region_7-wall1-1-1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_6-contact_region_7-wall1-1-1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      contact_region_6-contact_region_7-trg-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_6-contact_region_7-src-__2-base5-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      contact_region_6-contact_region_7-src-__2-base3-non-overlapping
+
+         Condition         Value       
+         ---------------------------
+         Thermal BC Type   Heat Flux   
+
+      __2-base2.9-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.8-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.7-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.6-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.5-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.4-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.3-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.2-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.1-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.9
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.8
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.7
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.6
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.5
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.4
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.3
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.2
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2.1
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      __2-base2
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      wall-87-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      wall-87
+
+         Condition                  Value             
+         ------------------------------------------
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-88-shadow
+
+         Condition         Value     
+         -------------------------
+         Thermal BC Type   Coupled   
+
+      wall-88
+
+         Condition                  Value             
+         ------------------------------------------
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-38-shadow
+
+         Condition         Value      
+         --------------------------
+         Material Name     aluminum   
+         Thermal BC Type   Coupled    
+
+      wall-38
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-91
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-90
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Heat Flux         
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-89
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Heat Flux         
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-69
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-68
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Heat Flux         
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall_ambient_fluid
+
+         Condition         Value      
+         --------------------------
+         Material Name     aluminum   
+         Thermal BC Type   Coupled    
+
+      wall_inner_salt2air
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      axis-__1-ambient_soil
+
+         Condition   Value   
+         -----------------
+
+      axis-__1-ambient_fluid
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-base2
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-base3
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-insulation2
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-insulation1
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-base4
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-base1
+
+         Condition   Value   
+         -----------------
+
+      axis-__3-inventory_air
+
+         Condition   Value   
+         -----------------
+
+      axis-__3-inventory_salt
+
+         Condition   Value   
+         -----------------
+
+      axis-geo_tank
+
+         Condition   Value   
+         -----------------
+
+      wall_ambient_boundary-__1-ambient_soil
+
+         Condition         Value         
+         -----------------------------
+         Material Name     aluminum      
+         Thermal BC Type   Temperature   
+         Temperature [C]   -8            
+
+      wall_ambient_boundary-__1-ambient_fluid
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Temperature       
+         Temperature [C]            -8                
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall_ambient_fluid-contact_region-src
+
+         Condition   Value   
+         -----------------
+
+      contact_region-trg
+
+         Condition   Value   
+         -----------------
+
+      contact_region_2-src
+
+         Condition   Value   
+         -----------------
+
+      contact_region_2-trg
+
+         Condition   Value   
+         -----------------
+
+      contact_region_3-src
+
+         Condition   Value   
+         -----------------
+
+      contact_region_3-trg
+
+         Condition   Value   
+         -----------------
+
+      contact_region_4-src
+
+         Condition   Value   
+         -----------------
+
+      contact_region_4-trg
+
+         Condition   Value   
+         -----------------
+
+      contact_region_5-src
+
+         Condition   Value   
+         -----------------
+
+      contact_region_5-trg
+
+         Condition   Value   
+         -----------------
+
+      contact_region_6-contact_region_7-src-__2-base3
+
+         Condition   Value   
+         -----------------
+
+      contact_region_6-contact_region_7-src-__2-base5
+
+         Condition   Value   
+         -----------------
+
+      contact_region_6-contact_region_7-trg
+
+         Condition   Value   
+         -----------------
+
+      wall_inner_fluid-contact_region_8-contact_region_9-src-__3-inventory_air
+
+         Condition   Value   
+         -----------------
+
+      wall_inner_fluid-contact_region_8-contact_region_9-src-__3-inventory_salt
+
+         Condition   Value   
+         -----------------
+
+      contact_region_8-contact_region_9-trg
+
+         Condition   Value   
+         -----------------
+
+      wall_inner_salt2air-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall_ambient_fluid-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+</BoundaryConditions>
+
+<SolverSettings>
+Solver Settings
+---------------
+
+   Equations
+
+      Equation     Solved   
+      -------------------
+      Flow         yes      
+      Turbulence   yes      
+      Energy       yes      
+
+   Numerics
+
+      Numeric                         Enabled   
+      ---------------------------------------
+      Absolute Velocity Formulation   yes       
+
+   Pseudo Transient Explicit Relaxation Factors
+
+      Variable                     Relaxation Factor   
+      ----------------------------------------------
+      Density                      1                   
+      Body Forces                  1                   
+      Turbulent Kinetic Energy     0.75                
+      Turbulent Dissipation Rate   0.75                
+      Turbulent Viscosity          1                   
+      Energy                       0.75                
+      Explicit Momentum            0.5                 
+      Explicit Pressure            0.5                 
+
+   Linear Solver
+
+      Variable                     Solver Type   Termination Criterion   Residual Reduction Tolerance   
+      -----------------------------------------------------------------------------------------------
+      Flow                         F-Cycle       0.1                                                    
+      Turbulent Kinetic Energy     F-Cycle       0.1                                                    
+      Turbulent Dissipation Rate   F-Cycle       0.1                                                    
+      Energy                       F-Cycle       0.1                                                    
+
+   Pressure-Velocity Coupling
+
+      Parameter          Value     
+      --------------------------
+      Type               Coupled   
+      Pseudo Transient   yes       
+
+   Discretization Scheme
+
+      Variable                     Scheme                
+      ------------------------------------------------
+      Pressure                     PRESTO!               
+      Momentum                     Second Order Upwind   
+      Turbulent Kinetic Energy     Second Order Upwind   
+      Turbulent Dissipation Rate   Second Order Upwind   
+      Energy                       Second Order Upwind   
+
+   Solution Limits
+
+      Quantity                         Limit   
+      --------------------------------------
+      Minimum Absolute Pressure        1       
+      Maximum Absolute Pressure        5e+10   
+      Minimum Temperature              1       
+      Maximum Temperature              5000    
+      Minimum Turb. Kinetic Energy     1e-14   
+      Minimum Turb. Dissipation Rate   1e-20   
+      Maximum Turb. Viscosity Ratio    1e+08   
+
+</SolverSettings>
+
+</FluentXMLReport>

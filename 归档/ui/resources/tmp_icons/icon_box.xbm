@@ -1,0 +1,4 @@
+#define icon_box_width 5
+#define icon_box_height 5
+static unsigned char icon_box_bits[] = {
+   0x1f, 0x11, 0x11, 0x11, 0x1f};

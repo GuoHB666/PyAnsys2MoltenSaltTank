@@ -1,0 +1,27 @@
+/* XPM */
+static char * ortho_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 5 1 0 0",
+/* colors */
+" 	c None",
+".	c #000000",
+"X	c #ffffff",
+"o	c #bdbdbd",
+"O	c #dedede",
+/* pixels */
+"                ",
+"                ",
+"       .......  ",
+"      .XXXXX..  ",
+"     .XXXXX.o.  ",
+"    .XXXXX.oo.  ",
+"   .XXXXX.ooo.  ",
+"  .......oooo.  ",
+"  .OOOOO.oooo.  ",
+"  .OOOOO.ooo.   ",
+"  .OOOOO.oo.    ",
+"  .OOOOO.o.     ",
+"  .OOOOO..      ",
+"  .......       ",
+"                ",
+"                "};

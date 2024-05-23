@@ -1,0 +1,27 @@
+/* XPM */
+static char * recordsession_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 5 1 0 0",
+/* colors */
+" 	c None",
+".	c #000000",
+"X	c #ff7777",
+"o	c #ffffff",
+"O	c #bdbdbd",
+/* pixels */
+"      ....      ",
+"     .XXXX.     ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"    .XXXXXX.    ",
+"     .XXXX.     ",
+"      ....      ",
+"                ",
+"  ....    ....  ",
+" .o....  .o.... ",
+" ..oo..  ..oo.. ",
+" ..oO..  ..oO.. ",
+" ....O.  ....O. ",
+"  ............  ",
+"                "};

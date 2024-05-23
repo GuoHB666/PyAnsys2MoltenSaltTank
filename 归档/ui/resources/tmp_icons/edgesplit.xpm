@@ -1,0 +1,26 @@
+/* XPM */
+static char *edgesplit[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+"  c #B4A419",
+". c #FF0000",
+"X c None",
+/* pixels */
+"XXXX XXXX X XX X",
+" XXX XXXX XX    ",
+"  X XXXXX XXXX X",
+"X   XXXX  XXXX X",
+"XX    XX XXXXX X",
+"XX.XX     XXXX X",
+"XX.XXXXX.       ",
+"X..XXXXX.XXXXX.X",
+"X.XXXXXX.XXXXX.X",
+"X.XXXXXX.XXXXX.X",
+"X.XXXXX..XXXXX.X",
+"X.XXXX..XXXXXX.X",
+"  XXXX.XXXXXX..X",
+"X   X..XXXXXX.XX",
+"  X            X",
+" XXXX XXXXXXX   "
+};

@@ -1,0 +1,26 @@
+/* XPM */
+static char * copy_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 4 1 0 0",
+/* colors */
+" 	c none",
+".	c black",
+"X	c white",
+"o	c #949494",
+/* pixels */
+"                ",
+"                ",
+"  .......       ",
+"  .XXXXX.       ",
+"  .XooXX.       ",
+"  .XXXX.......  ",
+"  .XooX.XXXXX.  ",
+"  .XXXX.XooXX.  ",
+"  .XooX.XXXXX.  ",
+"  .XXXX.XoooX.  ",
+"  ......XXXXX.  ",
+"       .XoooX.  ",
+"       .XXXXX.  ",
+"       .......  ",
+"                ",
+"                "};

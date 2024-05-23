@@ -1,0 +1,28 @@
+/* XPM */
+static char * persp_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 6 1 0 0",
+/* colors */
+" 	c None",
+".	c #000000",
+"X	c #bdbdbd",
+"o	c #ffffff",
+"O	c #dedede",
+"+	c #949494",
+/* pixels */
+"                ",
+"                ",
+"        ......  ",
+"     ...Xooo..  ",
+"   ..Xooooo.X.  ",
+"  .........XX.  ",
+"  .OOOOOOO.XX.  ",
+"  .OOOOOOO.X+.  ",
+"  .OOOOOOO.X.   ",
+"  .OOOOOOO.X.   ",
+"  .OOOOOOO.+.   ",
+"  .OOOOOOO..    ",
+"  .OOOOOOO..    ",
+"  .........     ",
+"                ",
+"                "};

@@ -1,0 +1,252 @@
+<Materials>
+    <Unit>MKS_STANDARD</Unit>
+    <Material name="tp347h">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>9581.6</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>100,600</T>
+            <Value>15.847, 22.782</Value>
+        </property>
+        <property type="Specific Heat">
+            <T>100,600</T>
+            <Value>457.79,600.24</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <T>100,600</T>
+            <Value>1.65792E-05, 1.85752E-05</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <T>100,600</T>
+            <Value>
+                <ElasticModulus>197334, 154504</ElasticModulus>
+                <PoissonRatio>0.3,0.3</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="concrete_hm">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>1250</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>100,185, 289, 384, 494, 598</T>
+            <Value>0.2653, 0.4493, 0.3161, 0.2963, 0.2936, 0.2887</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>840</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>8E-6</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <T>0,600</T>
+            <Value>
+                <ElasticModulus>7000e6,7000e6</ElasticModulus>
+                <PoissonRatio>0.2, 0.002</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="ceramsite_hm">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>580</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>110, 577</T>
+            <Value>0.1244, 0.2507</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>2047</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>1E-6</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>520e6</ElasticModulus>
+                <PoissonRatio>0.3</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="coarse_sand">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>2080</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <Value>0.87</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>840</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>5E-6</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>500e6</ElasticModulus>
+                <PoissonRatio>0.2</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="dry_sand">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>900</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <Value>2.5</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>2500</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>0</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>0</ElasticModulus>
+                <PoissonRatio>0</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="fine_gravel">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>2400</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <Value>2.04</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>920</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>4e-6</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>520e6</ElasticModulus>
+                <PoissonRatio>0.3</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+
+
+    <Material name="firebrick">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>2050</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>-100,600</T>
+            <Value>0.0237,0.0937</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>960</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>5e-6</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>37000e6</ElasticModulus>
+                <PoissonRatio>0.2</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="glass_wool">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>48</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>-100,600</T>
+            <Value>0.02394,0.19054</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>900</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>0</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>0</ElasticModulus>
+                <PoissonRatio>0</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="magnesium_silicate">
+        <mat_type>Solid</mat_type>
+        <property type = "Density">
+            <Value>100</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>-100, 200, 400, 600</T>
+            <Value>0.06230044, 0.08015932, 0.15543224, 0.2814</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>1168</Value>
+        </property>
+        <property type="Coefficient of Thermal Expansion">
+            <Value>0</Value>
+            <Tr>20</Tr>
+        </property>
+        <property type="Elasticity">
+            <Value>
+                <ElasticModulus>0</ElasticModulus>
+                <PoissonRatio>0</PoissonRatio>
+            </Value>
+        </property>
+    </Material>
+    <Material name="molten_salt">
+        <mat_type>Fluid</mat_type>
+        <property type = "Density">
+            <T>0,600</T>
+            <Value>2090, 1708.4</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>0,600</T>
+            <Value>0.443, 0.557</Value>
+        </property>
+        <property type="Specific Heat">
+            <T>0,600</T>
+            <Value>1443, 1546.2</Value>
+        </property>
+        <property type="Dynamic Viscosity">
+            <T>-100, 100,200,300,400,500, 600</T>
+            <Value>0.05558, 0.06153296, 0.08015931999999999, 0.11145907999999999, 0.15543224, 0.21207879999999998, 0.28139875999999997</Value>
+        </property>
+    </Material>
+
+
+    <Material name="air">
+        <mat_type>Fluid</mat_type>
+        <property type = "Density">
+            <T>-100, 0, 100, 200, 300, 400, 500, 600</T>
+            <Value>2.0411781692174418, 1.2939044481054367, 0.9471526195899773, 0.7469724188946424, 0.6166448573671814, 0.525038995766174, 0.45712992304210054, 0.4047758117162</Value>
+        </property>
+        <property type = "Thermal Conductivity">
+            <T>-100, 0, 100, 200, 300, 400, 500, 600</T>
+            <Value>0.018127, 0.0247, 0.031273, 0.037846, 0.044419, 0.050991999999999996, 0.057565, 0.064138</Value>
+        </property>
+        <property type="Specific Heat">
+            <Value>1065</Value>
+        </property>
+        <property type="Dynamic Viscosity">
+            <T>-100, 0, 100, 200, 300, 400, 500, 600</T>
+            <Value>1.3633e-05, 1.742e-05, 2.1207e-05, 2.4993999999999998e-05, 2.8781e-05, 3.2568e-05, 3.6355e-05, 4.0141999999999996e-05</Value>
+        </property>
+    </Material>
+</Materials>

@@ -1,0 +1,732 @@
+<FluentXMLReport>
+<version>
+Fluent
+Version: axi, dp, pbns, rke (axi, double precision, pressure-based, realizable k-epsilon)
+Release: 21.2.0
+Title: 
+</version>
+
+<Models>
+
+Models
+------
+
+   Model                        Settings                                
+   ------------------------------------------------------------------
+   Space                        Axisymmetric                            
+   Time                         Steady                                  
+   Viscous                      Realizable k-epsilon turbulence model   
+   Wall Treatment               Enhanced Wall Treatment                 
+   Heat Transfer                Enabled                                 
+   Solidification and Melting   Disabled                                
+   Radiation                    P1 Model                                
+   Species                      Disabled                                
+   Coupled Dispersed Phase      Disabled                                
+   NOx Pollutants               Disabled                                
+   SOx Pollutants               Disabled                                
+   Soot                         Disabled                                
+   Mercury Pollutants           Disabled                                
+   Structure                    Disabled                                
+   Acoustics                    Disabled                                
+   Eulerian Wall Film           Disabled                                
+   Potential/Li-ion Battery     Disabled                                
+   Multiphase                   Disabled                                
+
+</Models>
+
+<MaterialProperties>
+Material Properties
+-------------------
+
+   Material: glass_wool (solid)
+
+      Property               Units      Method       Value(s)                                                       
+      -----------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     48                                                             
+      Cp (Specific Heat)     J/(kg K)   constant     1300                                                           
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (0.5+2e-4*(StaticTemperature/1[K]-273.15))   
+
+   Material: magnesium_silicate (solid)
+
+      Property               Units      Method       Value(s)                                                                                                             
+      -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     100                                                                                                                  
+      Cp (Specific Heat)     J/(kg K)   constant     1168                                                                                                                 
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (0.0397-2.741e-6*(StaticTemperature/1[K]-273.15)+4.526e-7*(StaticTemperature/1[K]-273.15)^2)*1.3   
+
+   Material: firebrick (solid)
+
+      Property               Units      Method       Value(s)                                                          
+      --------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     2050                                                              
+      Cp (Specific Heat)     J/(kg K)   constant     960                                                               
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (0.0337+1e-4*(StaticTemperature/1[K]-273.15))   
+
+   Material: gravel (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   1500       
+      Cp (Specific Heat)     J/(kg K)   constant   1050       
+      Thermal Conductivity   W/(m K)    constant   0.5        
+
+   Material: fine-gravel (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   240        
+      Cp (Specific Heat)     J/(kg K)   constant   920        
+      Thermal Conductivity   W/(m K)    constant   2.04       
+
+   Material: ceramsite_concrete (solid)
+
+      Property               Units      Method       Value(s)                                                   
+      -------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     1250                                                       
+      Cp (Specific Heat)     J/(kg K)   constant     840                                                        
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1]*(1-(StaticTemperature/1[K]-273.15)/1600)   
+
+   Material: ceramsite (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   580        
+      Cp (Specific Heat)     J/(kg K)   constant   2047       
+      Thermal Conductivity   W/(m K)    constant   0.5        
+
+   Material: tp347h (solid)
+
+      Property               Units      Method       Value(s)                                                            
+      ----------------------------------------------------------------------------------------------------------------
+      Density                kg/m^3     constant     8000                                                                
+      Cp (Specific Heat)     J/(kg K)   polynomial   (22 431) (204 490) (427 561) (649 607)                              
+      Thermal Conductivity   W/(m K)    expression   1 [W m^-1 K^-1] * (14.46+0.01387*(StaticTemperature/1[K]-273.15))   
+
+   Material: molten_salt (fluid)
+
+      Property                        Units      Method       Value(s)                                                                                                                               
+      --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      Density                         kg/m^3     expression   1 [kg m^-3] * (2263.72-0.64*(StaticTemperature/1[K]))                                                                                  
+      Cp (Specific Heat)              J/(kg K)   polynomial   (0 1443) (600 1546.2)                                                                                                                  
+      Thermal Conductivity            W/(m K)    expression   1 [kg m s^-3 K^-1] * (0.39+1.9E-4*(StaticTemperature/1[K]))                                                                            
+      Viscosity                       kg/(m s)   expression   1 [kg m^-1 s^-1] * (7.55E-2-2.78E-4*(StaticTemperature/1[K])+3.49E-7*(StaticTemperature/1[K])^2-1.47E-10*(StaticTemperature/1[K])^3)   
+      Molecular Weight                kg/kmol    constant     77.49064                                                                                                                               
+      Absorption Coefficient          m^-1       constant     1                                                                                                                                      
+      Scattering Coefficient          m^-1       constant     0                                                                                                                                      
+      Scattering Phase Function                  isotropic    #f                                                                                                                                     
+      Thermal Expansion Coefficient   K^-1       constant     0                                                                                                                                      
+      Refractive Index                           constant     1                                                                                                                                      
+      Speed of Sound                  m/s        none         #f                                                                                                                                     
+
+   Material: air-new (fluid)
+
+      Property                        Units      Method                     Value(s)    
+      -------------------------------------------------------------------------------
+      Density                         kg/m^3     incompressible-ideal-gas   #f          
+      Cp (Specific Heat)              J/(kg K)   constant                   1093        
+      Thermal Conductivity            W/(m K)    constant                   0.05572     
+      Viscosity                       kg/(m s)   constant                   3.563e-05   
+      Molecular Weight                kg/kmol    constant                   28.966      
+      Absorption Coefficient          m^-1       constant                   0           
+      Scattering Coefficient          m^-1       constant                   0           
+      Scattering Phase Function                  isotropic                  #f          
+      Thermal Expansion Coefficient   K^-1       constant                   0           
+      Refractive Index                           constant                   1           
+      Speed of Sound                  m/s        none                       #f          
+
+   Material: air (fluid)
+
+      Property                        Units      Method      Value(s)     
+      -----------------------------------------------------------------
+      Density                         kg/m^3     constant    1.225        
+      Cp (Specific Heat)              J/(kg K)   constant    1006.43      
+      Thermal Conductivity            W/(m K)    constant    0.0242       
+      Viscosity                       kg/(m s)   constant    1.7894e-05   
+      Molecular Weight                kg/kmol    constant    28.966       
+      Absorption Coefficient          m^-1       constant    0            
+      Scattering Coefficient          m^-1       constant    0            
+      Scattering Phase Function                  isotropic   #f           
+      Thermal Expansion Coefficient   K^-1       constant    0            
+      Refractive Index                           constant    1            
+      Speed of Sound                  m/s        none        #f           
+
+   Material: aluminum (solid)
+
+      Property               Units      Method     Value(s)   
+      -----------------------------------------------------
+      Density                kg/m^3     constant   2719       
+      Cp (Specific Heat)     J/(kg K)   constant   871        
+      Thermal Conductivity   W/(m K)    constant   202.4      
+
+</MaterialProperties>
+
+<CellZoneConditions>
+Cell Zone Conditions
+--------------------
+
+   Zones
+
+      name                      id   type    
+      ------------------------------------
+      solid2-base_fine          14   solid   
+      solid2-insulation_outer   15   solid   
+      solid2-base_concrete_1_   16   solid   
+      solid2-base_ceramsite     17   solid   
+      solid2-base_firebrick     18   solid   
+      solid2-base_concrete_2_   19   solid   
+      solid2-base_concrete_3_   20   solid   
+      solid2-insulation_inner   21   solid   
+      solid2-base_gravel        22   solid   
+      solid1-tank               23   solid   
+      fluid-fluid_air           24   fluid   
+      fluid-fluid_salt          25   fluid   
+
+   Setup Conditions
+
+      solid2-base_fine
+
+         Condition       Value         
+         ---------------------------
+         Material Name   fine-gravel   
+         Frame Motion?   no            
+         Mesh Motion?    no            
+
+      solid2-insulation_outer
+
+         Condition       Value   
+         ---------------------
+         Frame Motion?   no      
+         Mesh Motion?    no      
+
+      solid2-base_concrete_1_
+
+         Condition       Value                
+         ----------------------------------
+         Material Name   ceramsite_concrete   
+         Frame Motion?   no                   
+         Mesh Motion?    no                   
+
+      solid2-base_ceramsite
+
+         Condition       Value       
+         -------------------------
+         Material Name   ceramsite   
+         Frame Motion?   no          
+         Mesh Motion?    no          
+
+      solid2-base_firebrick
+
+         Condition       Value       
+         -------------------------
+         Material Name   firebrick   
+         Frame Motion?   no          
+         Mesh Motion?    no          
+
+      solid2-base_concrete_2_
+
+         Condition       Value                
+         ----------------------------------
+         Material Name   ceramsite_concrete   
+         Frame Motion?   no                   
+         Mesh Motion?    no                   
+
+      solid2-base_concrete_3_
+
+         Condition       Value                
+         ----------------------------------
+         Material Name   ceramsite_concrete   
+         Frame Motion?   no                   
+         Mesh Motion?    no                   
+
+      solid2-insulation_inner
+
+         Condition       Value                
+         ----------------------------------
+         Material Name   magnesium_silicate   
+         Frame Motion?   no                   
+         Mesh Motion?    no                   
+
+      solid2-base_gravel
+
+         Condition       Value    
+         ----------------------
+         Material Name   gravel   
+         Frame Motion?   no       
+         Mesh Motion?    no       
+
+      solid1-tank
+
+         Condition       Value    
+         ----------------------
+         Material Name   tp347h   
+         Frame Motion?   no       
+         Mesh Motion?    no       
+
+      fluid-fluid_air
+
+         Condition       Value     
+         -----------------------
+         Material Name   air-new   
+         Frame Motion?   no        
+         Mesh Motion?    no        
+
+      fluid-fluid_salt
+
+         Condition       Value   
+         ---------------------
+         Frame Motion?   no      
+         Mesh Motion?    no      
+
+</CellZoneConditions>
+
+<BoundaryConditions>
+Boundary Conditions
+-------------------
+
+   Zones
+
+      name                                     id   type        
+      -------------------------------------------------------
+      wall-72-shadow                           89   wall        
+      wall-72                                  72   wall        
+      wall-73-shadow                           88   wall        
+      wall-73                                  73   wall        
+      wall-27-shadow                           87   wall        
+      wall-27                                  27   wall        
+      wall-68-shadow                           86   wall        
+      wall-68                                  68   wall        
+      wall-84                                  84   wall        
+      wall-83                                  83   wall        
+      wall-81                                  81   wall        
+      wall-80                                  80   wall        
+      wall-79                                  79   wall        
+      wall-76                                  76   wall        
+      wall-75                                  75   wall        
+      wall-74                                  74   wall        
+      wall-71                                  71   wall        
+      wall-70                                  70   wall        
+      wall-69                                  69   wall        
+      wall_fluid_couple                        13   wall        
+      wall_wind_top                            28   wall        
+      wall_wind_vertical                       29   wall        
+      wall_base_bottom                         30   wall        
+      axis-solid2-base_fine                    31   axis        
+      axis-solid2-insulation_outer             32   axis        
+      axis-solid2-base_ceramsite               33   axis        
+      axis-solid2-base_concrete_3_             34   axis        
+      axis-solid2-insulation_inner             35   axis        
+      axis-solid2-base_gravel                  36   axis        
+      axis-solid1-tank                         37   axis        
+      axis-fluid-fluid_air                     38   axis        
+      axis-fluid-fluid_salt                    39   axis        
+      wall_tank_top-bond_1-src                 40   interface   
+      wall_tank_vertical_unwetted-bond_1-src   41   interface   
+      wall_fluid_air-bond_1-trg                42   interface   
+      wall_tank_vertical_wet-bond_2-src        43   interface   
+      wall_tank_bottom-bond_2-src              44   interface   
+      wall_fluid_salt-bond_2-trg               45   interface   
+      bond_3-src                               46   interface   
+      bond_3-trg-solid2-base_firebrick         47   interface   
+      bond_3-trg-solid2-base_gravel            48   interface   
+      wall_tank_outer-bond_4-src               49   interface   
+      wall_insulation_inner-bond_4-trg         50   interface   
+      wall-solid2-base_fine                    52   wall        
+      wall-solid2-insulation_outer             59   wall        
+      wall-solid2-base_firebrick               67   wall        
+      wall_fluid_couple-shadow                 85   wall        
+
+   Setup Conditions
+
+      wall-72-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-72
+
+         Condition         Value      
+         --------------------------
+         Material Name     aluminum   
+         Thermal BC Type   Coupled    
+
+      wall-73-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-73
+
+         Condition         Value      
+         --------------------------
+         Material Name     aluminum   
+         Thermal BC Type   Coupled    
+
+      wall-27-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-27
+
+         Condition         Value      
+         --------------------------
+         Material Name     aluminum   
+         Thermal BC Type   Coupled    
+
+      wall-68-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-68
+
+         Condition         Value      
+         --------------------------
+         Material Name     aluminum   
+         Thermal BC Type   Coupled    
+
+      wall-84
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-83
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-81
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-80
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-79
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-76
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Heat Flux         
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-75
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-74
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-71
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Heat Flux         
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+      wall-70
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-69
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall_fluid_couple
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+         Internal Emissivity        0.95              
+
+      wall_wind_top
+
+         Condition                                          Value      
+         -----------------------------------------------------------
+         Material Name                                      aluminum   
+         Thermal BC Type                                    Mixed      
+         Convective Heat Transfer Coefficient [W/(m^2 K)]   10.1       
+         Free Stream Temperature [C]                        -8         
+         External Emissivity                                0.3        
+         External Radiation Temperature [C]                 -8         
+
+      wall_wind_vertical
+
+         Condition                                          Value      
+         -----------------------------------------------------------
+         Material Name                                      aluminum   
+         Thermal BC Type                                    Mixed      
+         Convective Heat Transfer Coefficient [W/(m^2 K)]   7.4        
+         Free Stream Temperature [C]                        -8         
+         External Emissivity                                0.3        
+         External Radiation Temperature [C]                 -8         
+
+      wall_base_bottom
+
+         Condition                                          Value        
+         -------------------------------------------------------------
+         Material Name                                      aluminum     
+         Thermal BC Type                                    Convection   
+         Convective Heat Transfer Coefficient [W/(m^2 K)]   2            
+         Free Stream Temperature [C]                        -8           
+
+      axis-solid2-base_fine
+
+         Condition   Value   
+         -----------------
+
+      axis-solid2-insulation_outer
+
+         Condition   Value   
+         -----------------
+
+      axis-solid2-base_ceramsite
+
+         Condition   Value   
+         -----------------
+
+      axis-solid2-base_concrete_3_
+
+         Condition   Value   
+         -----------------
+
+      axis-solid2-insulation_inner
+
+         Condition   Value   
+         -----------------
+
+      axis-solid2-base_gravel
+
+         Condition   Value   
+         -----------------
+
+      axis-solid1-tank
+
+         Condition   Value   
+         -----------------
+
+      axis-fluid-fluid_air
+
+         Condition   Value   
+         -----------------
+
+      axis-fluid-fluid_salt
+
+         Condition   Value   
+         -----------------
+
+      wall_tank_top-bond_1-src
+
+         Condition   Value   
+         -----------------
+
+      wall_tank_vertical_unwetted-bond_1-src
+
+         Condition   Value   
+         -----------------
+
+      wall_fluid_air-bond_1-trg
+
+         Condition   Value   
+         -----------------
+
+      wall_tank_vertical_wet-bond_2-src
+
+         Condition   Value   
+         -----------------
+
+      wall_tank_bottom-bond_2-src
+
+         Condition   Value   
+         -----------------
+
+      wall_fluid_salt-bond_2-trg
+
+         Condition   Value   
+         -----------------
+
+      bond_3-src
+
+         Condition   Value   
+         -----------------
+
+      bond_3-trg-solid2-base_firebrick
+
+         Condition   Value   
+         -----------------
+
+      bond_3-trg-solid2-base_gravel
+
+         Condition   Value   
+         -----------------
+
+      wall_tank_outer-bond_4-src
+
+         Condition   Value   
+         -----------------
+
+      wall_insulation_inner-bond_4-trg
+
+         Condition   Value   
+         -----------------
+
+      wall-solid2-base_fine
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-solid2-insulation_outer
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall-solid2-base_firebrick
+
+         Condition         Value       
+         ---------------------------
+         Material Name     aluminum    
+         Thermal BC Type   Heat Flux   
+
+      wall_fluid_couple-shadow
+
+         Condition                  Value             
+         ------------------------------------------
+         Material Name              aluminum          
+         Thermal BC Type            Coupled           
+         Wall Motion                Stationary Wall   
+         Shear Boundary Condition   No Slip           
+
+</BoundaryConditions>
+
+<SolverSettings>
+Solver Settings
+---------------
+
+   Equations
+
+      Equation     Solved   
+      -------------------
+      Flow         yes      
+      Turbulence   yes      
+      Energy       yes      
+      P1           yes      
+
+   Numerics
+
+      Numeric                         Enabled   
+      ---------------------------------------
+      Absolute Velocity Formulation   yes       
+
+   Pseudo Transient Explicit Relaxation Factors
+
+      Variable                     Relaxation Factor   
+      ----------------------------------------------
+      Density                      1                   
+      Body Forces                  1                   
+      Turbulent Kinetic Energy     0.75                
+      Turbulent Dissipation Rate   0.75                
+      Turbulent Viscosity          1                   
+      Energy                       0.75                
+      P1                           1                   
+      Explicit Momentum            0.5                 
+      Explicit Pressure            0.5                 
+
+   Linear Solver
+
+      Variable                     Solver Type   Termination Criterion   Residual Reduction Tolerance   
+      -----------------------------------------------------------------------------------------------
+      Flow                         F-Cycle       0.1                                                    
+      Turbulent Kinetic Energy     F-Cycle       0.1                                                    
+      Turbulent Dissipation Rate   F-Cycle       0.1                                                    
+      Energy                       F-Cycle       0.1                                                    
+      P1                           F-Cycle       0.1                                                    
+
+   Pressure-Velocity Coupling
+
+      Parameter          Value     
+      --------------------------
+      Type               Coupled   
+      Pseudo Transient   yes       
+
+   Discretization Scheme
+
+      Variable                     Scheme                
+      ------------------------------------------------
+      Pressure                     PRESTO!               
+      Momentum                     Second Order Upwind   
+      Turbulent Kinetic Energy     First Order Upwind    
+      Turbulent Dissipation Rate   First Order Upwind    
+      Energy                       Second Order Upwind   
+
+   Solution Limits
+
+      Quantity                         Limit   
+      --------------------------------------
+      Minimum Absolute Pressure        1       
+      Maximum Absolute Pressure        5e+10   
+      Minimum Temperature              1       
+      Maximum Temperature              5000    
+      Minimum Turb. Kinetic Energy     1e-14   
+      Minimum Turb. Dissipation Rate   1e-20   
+      Maximum Turb. Viscosity Ratio    1e+08   
+
+</SolverSettings>
+
+</FluentXMLReport>

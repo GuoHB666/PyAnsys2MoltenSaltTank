@@ -1,0 +1,23 @@
+/* XPM */
+static char*span_xpm[]={
+"16 16 4 1",
+". c #000000",
+"  c None",
+"b c #77bbcc",
+"d c #FF99CC",
+"                ",
+"     ...........",
+"    .bbbbbbbbb. ",
+"   .bbbbbbbbb.  ",
+"  .bbbbbbbbb.   ",
+" ...............",
+"    .dbbbbbbbd. ",
+"   .dbbbbbbbd.  ",
+"  .ddddddddd.   ",
+" ...............",
+"    .bbbbbbbbb. ",
+"   .bbbbbbbbb.  ",
+"  .bbbbbbbbb.   ",
+" ...........    ",
+"                ",
+"                "};

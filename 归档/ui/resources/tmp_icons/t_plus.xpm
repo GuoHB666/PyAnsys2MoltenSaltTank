@@ -1,0 +1,26 @@
+/* XPM */
+static char * t_plus_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 4 1 0 0",
+/* colors */
+" 	c None",
+".	c #666666",
+"X	c #000000",
+"o	c #999999",
+/* pixels */
+"                ",
+"                ",
+" .              ",
+"...             ",
+" .         XXX  ",
+" .   X    X   X ",
+" .   X   XXX  X ",
+" . XXXXX  X XXXX",
+" .   X    X   X ",
+" .   X    X   X ",
+" .         XXX  ",
+" .              ",
+" .              ",
+" .          .   ",
+" .............  ",
+"            .   "};

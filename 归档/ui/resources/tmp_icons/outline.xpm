@@ -1,0 +1,23 @@
+/* XPM */
+static char*outline_xpm[]={
+"16 16 4 1",
+". c #000000",
+"  c None",
+"c c #77bbcc",
+"d c #FF99CC",
+"  ............. ",
+"  .d.dccccccd.  ",
+"  .cd.cc  ccd.  ",
+"  .dcd.ccc cd.  ",
+" .dc cd.cccccd. ",
+" .dcc cd.d....d.",
+".dcc  ccd.ccccd.",
+".dccc ccc.cccd. ",
+" .dccccc.cc cd. ",
+"   .dccc.c cd.  ",
+"    .dcc.c cd.  ",
+"    .dcc.cccd.  ",
+"     .cc.ccccd. ",
+"      .c.cccccd.",
+"       .........",
+"                "};

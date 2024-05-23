@@ -1,0 +1,33 @@
+/* XPM */
+static char *normal[] = {
+/* width height ncolors chars_per_pixel */
+"8 7 19 1",
+/* colors */
+"  c None",
+". c #DCFEE4",
+"+ c #E4FEE4",
+"@ c #DCFEDC",
+"# c #D4FED4",
+"$ c #E4FEDC",
+"% c #34723C",
+"& c #2C7A34",
+"* c #247E2C",
+"= c #74B674",
+"- c #1C8224",
+"; c #6CBA6C",
+": c #3C723C",
+"> c #3C6E3C",
+", c #347234",
+"< c #2C7A2C",
+"1 c #1C861C",
+"2 c #148A14",
+"3 c None",
+/* pixels */
+"        ",
+"        ",
+"        ",
+"        ",
+"        ",
+"        ",
+"        "
+};

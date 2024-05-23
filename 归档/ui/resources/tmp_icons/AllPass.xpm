@@ -1,0 +1,26 @@
+/* XPM */
+static char *AllPass[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+"  c #000000",
+". c #E0A0C0",
+"X c none",
+/* pixels */
+"XXXXX     XXXXXX",
+"XXX  .. ..  XXXX",
+"XX .... .... XXX",
+"X . ... ... . XX",
+"X .. .. .. .. XX",
+" .... . . .... X",
+" .....   ..... X",
+"               X",
+" .....   ..... X",
+" .... . . .... X",
+"X .. .. .. .. XX",
+"X . ... ... . XX",
+"XX .... .... XXX",
+"XXX  .. ..  XXXX",
+"XXXXX     XXXXXX",
+"XXXXXXXXXXXXXXXX"
+};

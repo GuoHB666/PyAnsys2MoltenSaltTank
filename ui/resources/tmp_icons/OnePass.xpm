@@ -1,0 +1,27 @@
+/* XPM */
+static char *OnePass[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+"  c #000000",
+". c #E0A0C0",
+"X c none",
+"o c #80C0C0",
+/* pixels */
+"XXXXX     XXXXXX",
+"XXX  oo ..  XXXX",
+"XX oooo .... XXX",
+"X o ooo ... o XX",
+"X oo oo .. oo XX",
+" oooo o . oooo X",
+" ooooo   ooooo X",
+"               X",
+" ooooo   ooooo X",
+" oooo o o oooo X",
+"X oo oo oo oo XX",
+"X o ooo ooo o XX",
+"XX oooo oooo XXX",
+"XXX  oo oo  XXXX",
+"XXXXX     XXXXXX",
+"XXXXXXXXXXXXXXXX"
+};

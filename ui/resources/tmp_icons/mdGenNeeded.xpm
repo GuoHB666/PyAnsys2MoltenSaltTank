@@ -1,0 +1,29 @@
+/* XPM */
+static char *mdGenNeeded[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 6 1",
+/* colors */
+"  c #000000",
+". c None",
+"X c #A08000",
+"o c #77BBCC",
+"O c #FFFFFF",
+"+ c #FFFF00",
+/* pixels */
+"................",
+"...    O+++++X .",
+"... oo O++++X  .",
+".     O++++X o .",
+". oo oO+++X  o .",
+".    O++++Xo   .",
+". oo O+++XXo o .",
+". ooO++++++X o .",
+".     +++++o   .",
+". oo ooO++Xo o .",
+". oo O+++X   o .",
+".   O++XX  o   .",
+". oO++X oo o ...",
+". ooXXo oo   ...",
+".          .....",
+"................"
+};

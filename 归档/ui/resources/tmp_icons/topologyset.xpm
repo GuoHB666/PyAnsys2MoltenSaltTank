@@ -1,0 +1,25 @@
+/* XPM */
+static char * topology_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 3 1 0 0",
+/* colors */
+"  c none",
+". c #000000",
+"X c #77bbcc",
+/* pixels */
+"                ",
+"                ",
+"                ",
+". .......       ",
+". .    . ...    ",
+". .....    ...  ",
+"..XXXXX....   ..",
+".XXXXXXXXX.    .",
+".XXXXXXXXXX..  .",
+"..XXX.....XXX. .",
+". ...     ... ..",
+" .  .     .    ."
+" .  .....  .   .",
+"  ..        ....",
+"    .........   ",
+"                "};

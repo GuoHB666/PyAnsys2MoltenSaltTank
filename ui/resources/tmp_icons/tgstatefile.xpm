@@ -1,0 +1,27 @@
+/* XPM */
+static char * statefile_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 5 1 0 0",
+/* colors */
+" 	c None",
+".	c black",
+"X	c white",
+"o	c blue",
+"O	c #88ff88",
+/* pixels */
+"  ............. ",
+" .XXXXXXXXXXXX. ",
+".XXoooooXXooXX. ",
+".XXXXoXXXoXXoX. ",
+".XXXXoXXXoXXXX. ",
+".XXXXoXXXoXooX. ",
+".XXXXoXXXXooXX. ",
+".XXXXXXXXXXXXX. ",
+".XXXXXXXXXXXXX. ",
+".XXXXXXXX....X. ",
+".XX....XX.OO.X. ",
+".XX.OO....OO.X. ",
+".XX.OO.XX....X. ",
+".XX....XXXXXXX. ",
+".XXXXXXXXXXXXX. ",
+"............... "};

@@ -1,0 +1,27 @@
+/* XPM */
+static char *layer[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+"  c #000000",
+". c #77BBCC",
+"X c #FF99CC",
+"o c none",
+/* pixels */
+"ooooo           ",
+"oooo ......... o",
+"ooo ......... oo",
+"oo .........    ",
+"o ......... .. o",
+" ......... .. oo",
+"          ..    ",
+"o ......... XX o",
+" ......... XX oo",
+"          XX    ",
+"o XXXXXXXXX .. o",
+" XXXXXXXXX .. oo",
+"          .. ooo",
+"o ......... oooo",
+" ......... ooooo",
+"          oooooo"
+};

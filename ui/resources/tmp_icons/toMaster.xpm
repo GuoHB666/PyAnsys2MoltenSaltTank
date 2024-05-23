@@ -1,0 +1,27 @@
+/* XPM */
+static char *toMaster[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 4 1",
+/* colors */
+"  c #000000",
+". c None",
+"X c #C0C0C0",
+"o c #FFFFFF",
+/* pixels */
+"....... ........",
+"...... o .......",
+"..... XoX ......",
+".... XXoXX .....",
+"... XXXoXXX ....",
+".. XXXXoXXXX ...",
+". XXXXXoXXXXX ..",
+" ooooooooooooo .",
+". XXXXXoXXXXX ..",
+".. XXXXoXXXX ...",
+"... XXXoXXX ....",
+".... XXoXX .....",
+"..... XoX ......",
+"...... o .......",
+"....... ........",
+"................"
+};

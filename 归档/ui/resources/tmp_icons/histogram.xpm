@@ -1,0 +1,22 @@
+/* XPM */
+static char*histogram_xpm[]={
+"16 16 3 1",
+"# c #000000",
+". c #FF99CC",
+"c c #77bbcc",
+"cccccccccccccccc",
+"ccccccccccc.cccc",
+"ccccccccc.###ccc",
+"ccccccccc.#c#ccc",
+"ccccccccc.#c#ccc",
+"cccc...cc.#c#ccc",
+"cc.#####c.#c#ccc",
+"cc.#ccc#c.#c#ccc",
+"cc.#ccc#c.#c###c",
+"####ccc#c.#ccccc",
+"ccccccc####ccccc",
+"cccccccccccccccc",
+"cccccccccccccccc",
+"################",
+"cccccccccccccccc",
+"cccccccccccccccc"};

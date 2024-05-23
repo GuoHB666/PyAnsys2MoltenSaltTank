@@ -1,0 +1,30 @@
+/* XPM */
+static char * savestate_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 8 1 0 0",
+/* colors */
+".	c #000000",
+"c	c #bdbdbd",
+"a	c #737373",
+"O	c #adadad",
+"X      c #FF99CC",
+"a      c #77bbcc",
+"+	c #dedede",
+ " 	c None",
+/* pixels */
+".........       ",
+"..ccccca.       ",
+"..ccccc..       ",
+"..ccccc...      ",
+".........aX..   ",
+".........  aX.. ",
+"..OOO++..   aX..",
+"..OOO++...    a.",
+".........ax.    ",
+".........axx.   ",
+". XaaaaaaaaXX.  ",
+".Xaa. .aaaaaXX. ",
+".Xaa.    .aaaX. ",
+" .aa.       .aX.",
+"  ..   ...    ..",
+"      .a aX.    "};

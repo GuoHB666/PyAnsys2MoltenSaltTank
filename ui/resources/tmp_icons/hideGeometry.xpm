@@ -1,0 +1,28 @@
+/* XPM */
+static char *hideGeometry[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 5 1",
+/* colors */
+"  c #000000",
+". c #FFFFFF",
+"X c #00C0C0",
+"o c #77bbcc",
+"O c none",
+/* pixels */
+"               O",
+"oooooooooooooooO",
+"               O",
+"OOOOOOOOOOOOOOOO",
+"OOOOOOOO       O",
+"OOOOOOOO XXXXX O",
+"OOOOOOOO       O",
+"OOOOOOOO ooooo O",
+"OOOOOOOO ooooo O",
+"OOOOOOOO ooooo O",
+"OOOOOOOO o      ",
+"OOOOO      ..   ",
+"OOOO ooooo .. . ",
+"OOO o         . ",
+"O o OOOOOO .  . ",
+"OOOOOOOOOO      "
+};

@@ -1,0 +1,26 @@
+/* XPM */
+static char * statistics_xpm[] = {
+/* width height ncolors cpp [x_hot y_hot] */
+"16 16 4 1 0 0",
+/* colors */
+"a 	c None",
+".	c #000000",
+"X	c #bb0000",
+"o	c #77bbcc",
+/* pixels */
+"aaaaaaaaaaaaaaaa",
+"a............aaa",
+".oooooooooo.o.aa",
+".ooooooooo.oo.aa",
+".ooo  ooo.ooo.aa",
+".oo  ooo.oooo.aa",
+".oo ooo.oo oo.aa",
+".oo oo.oooooo.aa",
+".oooo.XXXooo.aaa",
+".ooo.XXXXX.aaaaa",
+".oo.XXXX.aaaaaaa",
+".o.XXX.aaaaa..aa",
+"..XX.aaaaaa...aa",
+".X.aaaa..a...aaa",
+".aaaaaa.....aaaa",
+"aaaaaaaa...aaaaa"};
