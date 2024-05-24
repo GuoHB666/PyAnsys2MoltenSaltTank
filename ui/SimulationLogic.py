@@ -25,7 +25,10 @@ class SimulationLogic(QObject):
                 heat_rows.append(row)
         return heat_rows
     def retranslate_ui(self):
-        self.ui.progressBar_simulate.setValue(0) # 初始化进度条进度为0
+        # 设置工况选项为第1个选项，并给定相应边界条件表格
+        self.ui.choice_working_condition.setCurrentIndex(0)
+        self.tab_boundary_changed()
+        # 进度框内容初始化
         self.ui.brow_simulate.clear()
         self.ui.brow_simulate.setFontFamily("Arial")  # 设置字体类型
         """边界条件中的表格相关样式"""
