@@ -3,14 +3,15 @@ from PyQt5.QtCore import QObject, QThread
 from pathlib import Path
 from PyQt5.QtGui import QIntValidator
 class SimulationLogic(QObject):
-    def __init__(self, ui,ansys_simulation):
+    def __init__(self, ui,ansys_simulation, template_script):
         super().__init__()
+        self.template_script = template_script
         self.ui = ui
         self.ansys_simulation = ansys_simulation
         self.thread = QThread() # 定义的子线程
         self.tab_boundary_rows = [i for i in range(self.ui.table_boundary_conditions.rowCount())]
         self.tab_boundary_checkrows = self.tab_boundary_rows
-        self.heat_rows = self.get_heat_rows()
+        self.heat_rows = self.get_heat_rows() # 边界条件的行数量
         self.simulate_events = ["开始创建连接。。。", "创建仿真系统中。。。",
                                 "仿真系统创建完成，开展几何建模中。。。","几何建模完成，导入模型中。。。",
                                 "模型导入完成，划分网格中。。。","网格划分成功，启动Fluent中。。。",
@@ -63,7 +64,7 @@ class SimulationLogic(QObject):
         # 通过连接 progressChanged 信号到 handle_progress_changed 槽函数，使得主线程能够监听、处理子线程的进度信息
         self.ansys_simulation.progressChanged.connect(self.handle_progress_changed)
     def simulate_script_generation(self):
-        msg_info = True
+        is_success = True
         allcheckbox_unchecked = True
         """检查各输入值是否合法"""
         # 边界条件表格
@@ -82,13 +83,14 @@ class SimulationLogic(QObject):
                     else:
                         value = float(value)
                 except:
-                    msg_info = False
+                    is_success = False
                     break
         # 模拟时间
         if allcheckbox_unchecked or \
-                (self.ui.simulate_time_input.isEnabled() \
-                 and self.ui.simulate_time_input.text() == ""):
-            msg_info = False
+                (self.ui.simulate_time_input.isEnabled() and self.ui.simulate_time_input.text() == ""):
+            is_success = False
+        if is_success:
+
        # info_alert("simulation",msg_info)
     def tab_boundary_changed(self):
         operate_condition = self.ui.choice_working_condition.currentText()

@@ -31,7 +31,7 @@ class PyAnsysUI(QObject):
         self.tree_logic = TreeLogic(self.ui)
         self.geo_logic = GeoLogic(self.ui, self.template_script)
         self.mat_logic = MatLogic(self.ui, self.mat_files, self.template_script)
-        self.simulation_logic = SimulationLogic(self.ui,self.ansys_simulation)
+        self.simulation_logic = SimulationLogic(self.ui,self.ansys_simulation, self.template_script)
         self.visual_logic = VisualLogic(self.ui)
         # UI初始化
         self.retranslate_ui()
