@@ -1311,50 +1311,40 @@
           </attribute>
           <row>
            <property name="text">
-            <string>重力</string>
+            <string>Gravity</string>
            </property>
           </row>
           <row>
            <property name="text">
-            <string>环境温度</string>
+            <string>Ambient temp</string>
            </property>
           </row>
           <row>
            <property name="text">
-            <string>进口流速</string>
+            <string>Init salt temp</string>
            </property>
           </row>
           <row>
            <property name="text">
-            <string>进口温度</string>
+            <string>Inlet velocity</string>
            </property>
           </row>
           <row>
            <property name="text">
-            <string>出口流速</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>出口温度</string>
+            <string>Inlet temp</string>
            </property>
           </row>
           <column>
            <property name="text">
-            <string/>
+            <string>Type</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>类型</string>
+            <string>Value</string>
            </property>
           </column>
-          <column>
-           <property name="text">
-            <string>大小</string>
-           </property>
-          </column>
-          <item row="0" column="1">
+          <item row="0" column="0">
            <property name="text">
             <string/>
            </property>
@@ -1362,7 +1352,7 @@
             <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
            </property>
           </item>
-          <item row="0" column="2">
+          <item row="0" column="1">
            <property name="text">
             <string>9.81</string>
            </property>
@@ -1370,22 +1360,22 @@
             <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
            </property>
           </item>
-          <item row="1" column="2">
+          <item row="1" column="1">
            <property name="text">
             <string>-8</string>
            </property>
           </item>
-          <item row="2" column="2">
+          <item row="2" column="1">
+           <property name="text">
+            <string>512.6</string>
+           </property>
+          </item>
+          <item row="3" column="1">
            <property name="text">
             <string/>
            </property>
           </item>
-          <item row="3" column="2">
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-          <item row="4" column="2">
+          <item row="4" column="1">
            <property name="text">
             <string/>
            </property>
@@ -1454,6 +1444,9 @@
                 <horstretch>55</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="placeholderText">
+               <string>unit: hour</string>
               </property>
              </widget>
             </item>
@@ -1689,7 +1682,7 @@
      <x>0</x>
      <y>0</y>
      <width>1155</width>
-     <height>29</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

@@ -21,7 +21,9 @@ class PyAnsysUI(QObject):
         self.template_script = {
             "geo_content": self.scripts_folder / "templates" / "geo_content.py",
             "fluent_content": self.scripts_folder / "templates" / "fluent_content.jou",
-            "mechanical_content": self.scripts_folder / "templates" / "mechanical_content.py"
+            "mechanical_content": self.scripts_folder / "templates" / "mechanical_content.py",
+            "fluent_meshing_content": self.scripts_folder / "templates" / "fluent_meshing_content.py",""
+            "multiphysics_calculation_flow": self.scripts_folder / "templates" / "multiphysics_calculation_flow.py"
         }
         # 清空脚本文件
         self.script_cleans(self.scripts_folder)

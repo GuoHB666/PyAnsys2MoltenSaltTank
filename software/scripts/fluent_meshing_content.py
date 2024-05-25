@@ -1,5 +1,5 @@
 # encoding: utf-8
-test_for_delete = 1 # 该脚本不用修改、直接生成。故
+
 ns_lists = ['axis', 'wall_ambient_boundary', 'wall_ambient_fluid', 'wall_inner_salt2air', 'wall_inner_fluid']
 def select_by_ids(ids):
     ExtAPI.SelectionManager.ClearSelection()

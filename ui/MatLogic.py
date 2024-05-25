@@ -228,20 +228,26 @@ class MatLogic(QObject):
                 {
                     "template_name": "fluent_content",
                     "cmd_keys": ["define mat_path"],
-                    "items": [self.filemat_CFD],
+                    "content2fill": [self.filemat_CFD],
                     "cmd_complete": "({key_str} \"{item_str}\")\n"
                 },
                 {
                     "template_name": "fluent_content",
                     "cmd_keys": ["define solid_zone_names", "define solid_mats"],
-                    "items": [list(bodymats_custom.keys()), list(bodymats_custom.values())],
+                    "content2fill": [list(bodymats_custom.keys()), list(bodymats_custom.values())],
                     "cmd_complete": "({key_str} '({item_str}))\n"
                 },
                 {
                     "template_name": "mechanical_content",
                     "cmd_keys": ["body_mats = "],
-                    "items": [bodymats_custom],
+                    "content2fill": [bodymats_custom],
                     "cmd_complete": "{key_str}{item_str}\n"
+                },
+                {
+                    "template_name": "multiphysics_calculation_flow",
+                    "cmd_keys": ["file_mat_FEM = "],
+                    "content2fill": [self.filemat_FEM[0]],
+                    "cmd_complete": "{key_str} r\"{item_str}\"\n"
                 }
             ]
             for script_info in script_infos:
@@ -249,7 +255,7 @@ class MatLogic(QObject):
                 file_new = file_origin.parent.parent / file_origin.name
                 # 定义脚本路径：若已经生成自定义脚本，则不再是查找模板脚本、生成新脚本，而是查找已有的自定义脚本
                 script_paths = [file_origin, file_new] if not file_new.exists() else [file_new, file_new]
-                for cmd_keys, item in zip(script_info["cmd_keys"], script_info["items"]):
+                for cmd_keys, item in zip(script_info["cmd_keys"], script_info["content2fill"]):
                     if isinstance(item, dict):
                         item_cmd = item  # 对于字典类型的，在mechanical中使用，可直接使用
                     elif isinstance(item,list):

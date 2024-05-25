@@ -1,5 +1,5 @@
 ;============================== fluent definition ==============================;
-(define init_salt_temp 512.5)
+(define init_salt_temp 512.6)
 (define init_ambient_temp -8)
 (define radia_salt2air 0.95)
 (define simulate_hour 2) ; 求解时间，单位h

@@ -2,6 +2,8 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from ui.PyAnsysUI import PyAnsysUI # 调动ui文件夹下的PyAnsysUI文件里的PyAnsysUI类
 from pathlib import Path
+
+
 if __name__ == "__main__":
     root_path_prj = Path(__file__).parent
     try:

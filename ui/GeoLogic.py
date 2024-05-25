@@ -86,17 +86,46 @@ class GeoLogic(QObject):
                 is_success = True
             geo_params_custom[key] = value
         if is_success:
-            """读取默认几何脚本"""
-            search_key_strs = ["geo_file_path = ", "geo_param = "]
-            for i,key_str in enumerate(search_key_strs):
-                if i == 0:
-                    complete_cmd = f"{key_str}r\"{file_geo.absolute()}\"\n"
-                else:
-                    complete_cmd = f"{key_str}{geo_params_custom}\n"
-                scrip_paths = [file_geo_template, file_geo_template.parent.parent / file_geo_template.name]
-                """新脚本生成"""
-                script_builder(scrip_paths, key_str, complete_cmd)
-            is_success = True
+            script_infos = [
+                {
+                    "template_name": "geo_content",
+                    "cmd_keys": ["geo_file_path = "],
+                    "content2fill": [file_geo.absolute()],
+                    "cmd_complete": "{key_str}r\"{item_str}\"\n"
+                },
+                {
+                    "template_name": "geo_content",
+                    "cmd_keys": ["geo_param = "],
+                    "content2fill": [geo_params_custom],
+                    "cmd_complete": "{key_str}{item_str}\n"
+                },
+                {
+                    "template_name": "mechanical_content",
+                    "cmd_keys": ["salt_inventory = "],
+                    "content2fill": [geo_params_custom["inventory"]],
+                    "cmd_complete": "{key_str}{item_str}\n"
+                },
+                {
+                    "template_name": "fluent_meshing_content",
+                    "cmd_keys": ["test_for_delete = "],
+                    "content2fill": [""],
+                    "cmd_complete": "\n"
+                }
+                ]
+            for script_info in script_infos:
+                file_origin = self.script_template[script_info["template_name"]]
+                file_new = file_origin.parent.parent / file_origin.name
+                # 定义脚本路径：若已经生成自定义脚本，则不再是查找模板脚本、生成新脚本，而是查找已有的自定义脚本
+                script_paths = [file_origin, file_new] if not file_new.exists() else [file_new, file_new]
+                for cmd_keys, item in zip(script_info["cmd_keys"], script_info["content2fill"]):
+                    if isinstance(item, (dict, str, float)):
+                       item_cmd = str(item)
+                    elif isinstance(item,list):
+                        item_cmd = ' '.join(f'"{item}"' for item in item) # 对于列表类型的，在fluent中使用，需先转换成字符串
+                    else:
+                        item_cmd = str(item.absolute())
+                    cmd_completes = script_info["cmd_complete"].format(key_str=cmd_keys, item_str=item_cmd)
+                    is_success = script_builder(script_paths, cmd_keys, cmd_completes)
         info_alert("geo",is_success)
     def insulation_structure_choice(self, index):
         label = self.ui.label_img_insulation2base
