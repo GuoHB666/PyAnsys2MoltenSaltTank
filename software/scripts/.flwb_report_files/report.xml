@@ -180,13 +180,13 @@ Cell Zone Conditions
       __3-inventory_air    34   fluid   
       __1-ambient_fluid    26   fluid   
       geo_tank             36   solid   
-      __2-base5            30   solid   
-      __2-base1            32   solid   
+      __2-base5            33   solid   
+      solid-__2-base1      27   solid   
       __2-base4            28   solid   
-      __2-base2            33   solid   
-      solid-__2-base3      27   solid   
-      __2-insulation2      29   solid   
-      __2-insulation1      31   solid   
+      __2-base2            30   solid   
+      __2-base3            29   solid   
+      __2-insulation2      31   solid   
+      __2-insulation1      32   solid   
       __1-ambient_soil     25   solid   
 
    Setup Conditions
@@ -229,7 +229,7 @@ Cell Zone Conditions
          Frame Motion?   no          
          Mesh Motion?    no          
 
-      __2-base1
+      solid-__2-base1
 
          Condition       Value         
          ---------------------------
@@ -253,7 +253,7 @@ Cell Zone Conditions
          Frame Motion?   no             
          Mesh Motion?    no             
 
-      solid-__2-base3
+      __2-base3
 
          Condition       Value    
          ----------------------
@@ -318,26 +318,26 @@ Boundary Conditions
       contact_region_6-contact_region_7-trg-non-overlapping                       117   wall        
       contact_region_6-contact_region_7-src-__2-base5-non-overlapping             115   wall        
       contact_region_6-contact_region_7-src-__2-base3-non-overlapping             116   wall        
-      __2-base3.9-shadow                                                          106   wall        
-      __2-base3.8-shadow                                                          105   wall        
-      __2-base3.7-shadow                                                          104   wall        
-      __2-base3.6-shadow                                                          103   wall        
-      __2-base3.5-shadow                                                          102   wall        
-      __2-base3.4-shadow                                                          101   wall        
-      __2-base3.3-shadow                                                          100   wall        
-      __2-base3.2-shadow                                                          99    wall        
-      __2-base3.1-shadow                                                          98    wall        
-      __2-base3-shadow                                                            97    wall        
-      __2-base3.9                                                                 24    wall        
-      __2-base3.8                                                                 23    wall        
-      __2-base3.7                                                                 22    wall        
-      __2-base3.6                                                                 21    wall        
-      __2-base3.5                                                                 20    wall        
-      __2-base3.4                                                                 19    wall        
-      __2-base3.3                                                                 18    wall        
-      __2-base3.2                                                                 16    wall        
-      __2-base3.1                                                                 15    wall        
-      __2-base3                                                                   14    wall        
+      __2-base1.9-shadow                                                          106   wall        
+      __2-base1.8-shadow                                                          105   wall        
+      __2-base1.7-shadow                                                          104   wall        
+      __2-base1.6-shadow                                                          103   wall        
+      __2-base1.5-shadow                                                          102   wall        
+      __2-base1.4-shadow                                                          101   wall        
+      __2-base1.3-shadow                                                          100   wall        
+      __2-base1.2-shadow                                                          99    wall        
+      __2-base1.1-shadow                                                          98    wall        
+      __2-base1-shadow                                                            97    wall        
+      __2-base1.9                                                                 24    wall        
+      __2-base1.8                                                                 23    wall        
+      __2-base1.7                                                                 22    wall        
+      __2-base1.6                                                                 21    wall        
+      __2-base1.5                                                                 20    wall        
+      __2-base1.4                                                                 19    wall        
+      __2-base1.3                                                                 18    wall        
+      __2-base1.2                                                                 16    wall        
+      __2-base1.1                                                                 15    wall        
+      __2-base1                                                                   14    wall        
       wall-87-shadow                                                              96    wall        
       wall-87                                                                     87    wall        
       wall-88-shadow                                                              95    wall        
@@ -353,12 +353,12 @@ Boundary Conditions
       wall_inner_salt2air                                                         17    wall        
       axis-__1-ambient_soil                                                       39    axis        
       axis-__1-ambient_fluid                                                      40    axis        
-      axis-__2-base3                                                              41    axis        
-      axis-__2-insulation2                                                        42    axis        
-      axis-__2-base4                                                              43    axis        
-      axis-__2-insulation1                                                        44    axis        
-      axis-__2-base1                                                              45    axis        
-      axis-__2-base2                                                              46    axis        
+      axis-__2-base1                                                              41    axis        
+      axis-__2-base3                                                              42    axis        
+      axis-__2-base2                                                              43    axis        
+      axis-__2-insulation2                                                        44    axis        
+      axis-__2-insulation1                                                        45    axis        
+      axis-__2-base4                                                              46    axis        
       axis-__3-inventory_air                                                      47    axis        
       axis-__3-inventory_salt                                                     48    axis        
       axis-geo_tank                                                               49    axis        
@@ -523,121 +523,121 @@ Boundary Conditions
          ---------------------------
          Thermal BC Type   Heat Flux   
 
-      __2-base3.9-shadow
+      __2-base1.9-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.8-shadow
+      __2-base1.8-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.7-shadow
+      __2-base1.7-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.6-shadow
+      __2-base1.6-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.5-shadow
+      __2-base1.5-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.4-shadow
+      __2-base1.4-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.3-shadow
+      __2-base1.3-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.2-shadow
+      __2-base1.2-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.1-shadow
+      __2-base1.1-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3-shadow
+      __2-base1-shadow
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.9
+      __2-base1.9
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.8
+      __2-base1.8
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.7
+      __2-base1.7
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.6
+      __2-base1.6
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.5
+      __2-base1.5
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.4
+      __2-base1.4
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.3
+      __2-base1.3
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.2
+      __2-base1.2
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3.1
+      __2-base1.1
 
          Condition         Value     
          -------------------------
          Thermal BC Type   Coupled   
 
-      __2-base3
+      __2-base1
 
          Condition         Value     
          -------------------------
@@ -754,7 +754,17 @@ Boundary Conditions
          Condition   Value   
          -----------------
 
+      axis-__2-base1
+
+         Condition   Value   
+         -----------------
+
       axis-__2-base3
+
+         Condition   Value   
+         -----------------
+
+      axis-__2-base2
 
          Condition   Value   
          -----------------
@@ -764,22 +774,12 @@ Boundary Conditions
          Condition   Value   
          -----------------
 
-      axis-__2-base4
-
-         Condition   Value   
-         -----------------
-
       axis-__2-insulation1
 
          Condition   Value   
          -----------------
 
-      axis-__2-base1
-
-         Condition   Value   
-         -----------------
-
-      axis-__2-base2
+      axis-__2-base4
 
          Condition   Value   
          -----------------

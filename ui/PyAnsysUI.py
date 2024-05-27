@@ -14,7 +14,8 @@ class PyAnsysUI(QObject):
         super().__init__()
         # 定义用到的全局变量
         self.ui = uic.loadUi(path_prj / "ui" / "py_ansys_ui3.0.ui")
-        self.scripts_folder = path_prj / "software" / "scripts"
+        self.software_folder = path_prj / "software"
+        self.scripts_folder = self.software_folder / "scripts"
         self.result_folder = path_prj / "result"
         self.constant_folder = path_prj / "constant"
         self.mat_files = [self.constant_folder / "mat_FEM_solid.xml", self.constant_folder / "mat_FEM_fluid.xml", self.constant_folder / "mat_CFD.scm"]
@@ -27,13 +28,13 @@ class PyAnsysUI(QObject):
         }
         # 清空脚本文件
         self.script_cleans(self.scripts_folder)
-        # ansys求解的对象
-        self.ansys_simulation = CoWbUnitProcess()
+        # # ansys求解的对象
+        # self.ansys_simulation = CoWbUnitProcess(self.software_folder)
         # 图形化显示涉及到的类
         self.tree_logic = TreeLogic(self.ui)
         self.geo_logic = GeoLogic(self.ui, self.template_script)
         self.mat_logic = MatLogic(self.ui, self.mat_files, self.template_script)
-        self.simulation_logic = SimulationLogic(self.ui,self.ansys_simulation, self.template_script)
+        self.simulation_logic = SimulationLogic(self.ui,self.software_folder, self.template_script)
         self.visual_logic = VisualLogic(self.ui)
         # UI初始化
         self.retranslate_ui()

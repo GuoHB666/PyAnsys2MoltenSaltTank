@@ -108,8 +108,8 @@ class GeoLogic(QObject):
                 {
                     "template_name": "fluent_meshing_content",
                     "cmd_keys": ["test_for_delete = "],
-                    "content2fill": [""],
-                    "cmd_complete": "\n"
+                    "content2fill": ["-1"],
+                    "cmd_complete": "{key_str}{item_str}\n"
                 }
                 ]
             for script_info in script_infos:
@@ -125,7 +125,9 @@ class GeoLogic(QObject):
                     else:
                         item_cmd = str(item.absolute())
                     cmd_completes = script_info["cmd_complete"].format(key_str=cmd_keys, item_str=item_cmd)
-                    is_success = script_builder(script_paths, cmd_keys, cmd_completes)
+                    if not script_builder(script_paths, cmd_keys, cmd_completes):
+                        is_success = False
+                        break
         info_alert("geo",is_success)
     def insulation_structure_choice(self, index):
         label = self.ui.label_img_insulation2base

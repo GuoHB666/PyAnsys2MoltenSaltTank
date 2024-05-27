@@ -4,20 +4,20 @@ from pathlib import Path
 from PyQt5.QtGui import QIntValidator
 from .info_alert import info_alert
 from .script_builder import script_builder
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
+import sys
+import re
+
 class SimulationLogic(QObject):
-    def __init__(self, ui,ansys_simulation, template_script):
+    def __init__(self, ui,software_folder, template_script):
         super().__init__()
         self.script_template = template_script
         self.ui = ui
-        self.ansys_simulation = ansys_simulation
-        self.thread = QThread() # 定义的子线程
+        self.software_folder = software_folder
+        self.subthreads = None
         self.tab_boundary_allrows = [i for i in range(self.ui.table_boundary_conditions.rowCount())]
         self.tab_boundary_necessaryrows = self.tab_boundary_allrows # 脚本生成时需要检查的边界条件表行数
         self.charge_rows = self.get_charge_rows() # 边界条件表中必选框的行数
-        self.simulate_events = ["开始创建连接。。。", "创建仿真系统中。。。",
-                                "仿真系统创建完成，开展几何建模中。。。","几何建模完成，导入模型中。。。",
-                                "模型导入完成，划分网格中。。。","网格划分成功，启动Fluent中。。。",
-                                "开始计算。。。", "计算完成！断开连接、保存并退出Ansys"]
         # 事件连接
         self.signal_connect_slot()
     def get_charge_rows(self):
@@ -31,6 +31,7 @@ class SimulationLogic(QObject):
         # 设置工况选项为第1个选项，并给定相应边界条件表格
         self.ui.choice_working_condition.setCurrentIndex(0)
         self.tab_boundary_changed()
+        self.ui.choice_working_condition.setDisabled(True)  # 设置 Combobox 为只读状态
         # 进度框内容初始化
         self.ui.brow_simulate.clear()
         self.ui.brow_simulate.setFontFamily("Arial")  # 设置字体类型
@@ -62,12 +63,8 @@ class SimulationLogic(QObject):
         validator.setRange(1, 999999) # 设置验证器的范围
         self.ui.simulate_time_input.setValidator(validator) # 设置验证器到 QLineEdit 中
     def signal_connect_slot(self):
-        self.ui.button_simulate_run.released.connect(self.simulate_with_ansys)
         self.ui.choice_working_condition.currentTextChanged.connect(self.tab_boundary_changed)
-        # 根据输入选项，生成相应的计算脚本
-        self.ui.button_simulate_scripts.released.connect(self.simulate_script_builder)
-        # 通过连接 progressChanged 信号到 handle_progress_changed 槽函数，使得主线程能够监听、处理子线程的进度信息
-        self.ansys_simulation.progressChanged.connect(self.handle_progress_changed)
+        self.ui.button_tosimulate.released.connect(self.simulate_script_builder)
     def simulate_script_builder(self):
         is_success = True
         """检查各输入值是否合法"""
@@ -96,12 +93,11 @@ class SimulationLogic(QObject):
                 if "Ambient" in row_header or "Init salt" in row_header:
                     content2fill_fluent.append(script_path)
         # 模拟时间检查
-        if self.ui.simulate_time_input.isEnabled() and self.ui.simulate_time_input.text() == "":
+        if self.ui.simulate_time_input.text() == "":
             is_success = False
         else:
             content2fill_fluent.append(self.ui.simulate_time_input.text())
-        print(content2fill_fluent)
-        # 生成几何脚本
+        # 生成脚本
         if is_success:
             script_custom = {}
             # 用于计算的脚本路径生成，得确保脚本文件一定存在
@@ -111,6 +107,7 @@ class SimulationLogic(QObject):
                     is_success = False
                     break
                 script_custom[script_name]= str(custom_script_path.absolute())
+            # 基于字典，生成脚本
             script_infos = [
                 {
                     "template_name": "fluent_content",
@@ -121,7 +118,6 @@ class SimulationLogic(QObject):
                 {
                     "template_name": "multiphysics_calculation_flow",
                     "cmd_keys": ["script_path = "],
-                    #"content2fill": [self.script_template],
                     "content2fill": [script_custom],
                     "cmd_complete": "{key_str}{item_str}\n"
                 }
@@ -134,7 +130,7 @@ class SimulationLogic(QObject):
                     is_success = False
                     break
                 script_paths = [file_new, file_new]
-                # 开展脚本
+                # 开展脚本替换
                 for cmd_keys, item in zip(script_info["cmd_keys"], script_info["content2fill"]):
                     if isinstance(item, (dict, str, float)):
                        item_cmd = str(item)
@@ -145,43 +141,141 @@ class SimulationLogic(QObject):
                     cmd_completes = script_info["cmd_complete"].format(key_str=cmd_keys, item_str=item_cmd)
                     is_success = script_builder(script_paths, cmd_keys, cmd_completes)
         info_alert("simulation", is_success)
+        if is_success:
+            template_simulate_flow = self.script_template["multiphysics_calculation_flow"]
+            custom_simulate_flow = template_simulate_flow.parent.parent / template_simulate_flow.name
+            self.simulate_with_ansys(str(custom_simulate_flow.absolute()))
     def tab_boundary_changed(self):
         operate_condition = self.ui.choice_working_condition.currentText()
         for row in self.charge_rows:
             if operate_condition == "充放热工况":
                 self.ui.table_boundary_conditions.showRow(row)
                 self.tab_boundary_necessaryrows = self.tab_boundary_allrows
-                self.ui.simulate_time_input.setDisabled(False)
             else:
                 self.ui.table_boundary_conditions.hideRow(row)
                 self.tab_boundary_necessaryrows = list(set(self.tab_boundary_allrows) - set(self.charge_rows))
-                self.ui.simulate_time_input.setDisabled(True)
-    def simulate_with_ansys(self):
-        # 创建子线程
-        self.ansys_simulation.moveToThread(self.thread)
-        # 开展ansys计算
-        self.thread.started.connect(self.ansys_simulation.simula_system_run)
-        self.thread.start()
-    def buttons_status(self, button_statue=False):
-        buttons = [self.ui.button_simulate_run,
-            self.ui.button_mat_scripts,self.ui.button_geo_scripts, self.ui.button_simulate_scripts]
+    def simulate_with_ansys(self, script_multiphysics):
+        # 启动分隔符
+        self.update_brow_simulate("=" * 50)
+        # 禁用按钮以防止重复启动线程
+        self.buttons_enable(False)
+        # 创建子线程类
+        self.subthreads = [RunSimulationThread(script_multiphysics), SimulationTrackerThread()]
+        # 子线程操作
+        for subthread in self.subthreads:
+            # 连接 子线程 的信号到槽函数
+            subthread.update_signal.connect(self.update_brow_simulate)
+            # 线程完成后重新启用按钮
+            subthread.finished.connect(self.check_threads_allfinished)
+            # 启动线程
+            subthread.start()
+
+    def check_threads_allfinished(self):
+        is_all_run = all(thread.isRunning() for thread in self.subthreads)
+        is_all_close = all(thread.isFinished() for thread in self.subthreads)
+        if is_all_close:
+            # 线程完成后重新启用按钮
+            self.buttons_enable(True)
+            # 结束分隔符
+            self.update_brow_simulate("="*50)
+    @pyqtSlot(str)
+    def update_brow_simulate(self, message):
+        self.ui.brow_simulate.append(message)
+    def buttons_enable(self, button_statue=False):
+        buttons = [self.ui.button_tosimulate]
         for script_button in buttons:
             script_button.setEnabled(button_statue)
-    # 主线程中处理信号的槽函数
-    def handle_progress_changed(self, progress_count):
+
+
+import time
+# 将父文件夹路径添加到sys.path
+path_project = Path(__file__).parent.parent
+sys.path.append(str(path_project))
+# 现在可以使用 from ... import 语法导入父文件夹中的模块
+from PyWbUnit.CoWbUnit import CoWbUnitProcess
+
+
+class RunSimulationThread(QThread):
+    update_signal = pyqtSignal(str)
+    def __init__(self, script_multiphysics):
+        super().__init__()
+        self.script_multiphysics = script_multiphysics
+    def run(self):
         try:
-            if progress_count == 0:
-                self.ui.brow_simulate.append("=" * 50)
-                self.buttons_status(False)
-            progress = ((progress_count + 1) / len(self.simulate_events)) * 100
-            event = self.simulate_events[progress_count]
-            self.ui.brow_simulate.append(event)  # 更新显示框
-            self.ui.progressBar_simulate.setValue(int(progress)) # 更新进度条
-            if progress_count == len(self.simulate_events)-1:
-                self.thread.quit()  # 通知线程停止
-                self.thread.wait()
-                self.thread.started.disconnect()  # 断开连接，保证之后重新计算时started.connect不会多次连接到simula_system_run函数中
-                self.ui.brow_simulate.append("=" * 50)
-                self.buttons_status(True)
+            # folder_user = r"D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\py_ansys_files\user_files"
+            # journal = os.path.join(folder_user, "journal.txt")
+            # ansys_events = {
+            #     "system_building": "【{current_stage}/{all_stage}】 创建计算系统中\n",
+            #     "system_builded": "【{current_stage}/{all_stage}】 计算系统创建结束\n",
+            #     "geo_building": "【{current_stage}/{all_stage}】 开始创建几何\n",
+            #     "geo_builded": "【{current_stage}/{all_stage}】 几何创建结束\n",
+            #     "CFD_meshing": "【{current_stage}/{all_stage}】 开展CFD网格划分中\n",
+            #     "CFD_meshed": "【{current_stage}/{all_stage}】 CFD网格划分结束\n",
+            #     "CFD_runing": "【{current_stage}/{all_stage}】 开展CFD计算中\n",
+            #     "CFD_runed": "【{current_stage}/{all_stage}】 CFD计算结束\n",
+            #     "thermal_load_importing": "【{current_stage}/{all_stage}】 创建温度载荷中\n",
+            #     "thermal_load_imported": "【{current_stage}/{all_stage}】 温度载荷创建结束\n",
+            #     "Mechanical_runing": "【{current_stage}/{all_stage}】 开展固体域力学分析中\n",
+            #     "Mechanical_runed": "【{current_stage}/{all_stage}】 固体域力学分析结束\n"
+            # }
+            # with open(journal, 'w', encoding='utf-8') as f:
+            #     for i, (key, value) in enumerate(ansys_events.items(), start=1):
+            #         journal_line = f"{value.format(current_stage=i, all_stage=len(ansys_events))}"
+            #         f.write(journal_line)
+            #         f.flush()  # 确保数据被立即写入文件
+            #         time.sleep(10)
+            ansys_simulation = CoWbUnitProcess(wbjpFolder=path_project / "software")
+            ansys_simulation.simulation_run(self.script_multiphysics)
+            # for i in range(10):
+            #     time.sleep(1)  # 模拟耗时计算
+            #     self.update_signal.emit(f"Worker 2 进度：{i + 1}/10")
+            # self.update_signal.emit("Worker 2 完成")
         except Exception as e:
             print("An exception occurred:", e)
+class SimulationTrackerThread(QThread):
+    update_signal = pyqtSignal(str)
+    def __init__(self):
+        super().__init__()
+    def run(self):
+        time.sleep(5) # 在正式查找日志文件之前，需延时等待 模拟计算 类的初始化
+        journal = Path(__file__).parent.parent / "software" / "py_ansys_files" / "user_files" / "journal.txt"
+        stage_old = 0
+        time_start = time.time()
+        while True:
+            try:
+                with open(journal, 'r') as file:
+                    lines = file.readlines()
+                    last_line = lines[-1].strip()  # 读取最后一行，去除了"\n"
+                    expression = self.extract_expression(last_line)
+                    stage_current = self.get_expression_result(expression)
+                    if stage_current > stage_old:
+                        time_start = time.time()
+                        self.update_signal.emit(last_line)
+                        if stage_current == 1:
+                            return
+                    else:
+                        time_end = time.time()
+                        text_to_add = f"\t 已运行 {time_end-time_start:.2f} s"
+                        self.update_signal.emit(text_to_add)
+                stage_old = stage_current # 更新状态参数
+                time.sleep(2)
+            except:
+                time_end = time.time()
+                self.update_signal.emit(f"***** 连接中，已用时 {time_end-time_start:.2f} s *****")
+                time.sleep(2)
+    @staticmethod
+    def extract_expression(text):
+        # 使用正则表达式匹配形如【2/12】的表达式
+        match = re.search(r'【(.*?)】', text)
+        if match:
+            return match.group(1)  # 提取括号中的表达式
+        return None
+    @staticmethod
+    def get_expression_result(expression):
+        try:
+            result = eval(expression)
+            return result
+        except Exception as e:
+            print(f"Error evaluating expression: {expression}")
+            print(e)
+            return None

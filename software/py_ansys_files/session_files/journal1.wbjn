@@ -6,14 +6,10 @@ string1 = Server.StartServer(
     Port=0,
     PortMin=9000,
     PortMax=9200,
-    WriteConnectionInfoFile="aaS_WbId.txt")
-RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsysWorkbench/software/scripts/Fluent/script/systems_building.py")
-RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsysWorkbench/software/scripts/Fluent/script/geo_import.py")
-RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsysWorkbench/software/scripts/Fluent/script/meshing.py")
-RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsysWorkbench/software/scripts/Fluent/script/calcu_launch.py")
+    WriteConnectionInfoFile=r"D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\aaS_WbId.txt")
+Save(Overwrite=True)
+RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsys2MoltenSaltTank/software/scripts/multiphysics_calculation_flow.py")
 system1 = GetSystem(Name="FFF")
 setup1 = system1.GetContainer(ComponentName="Setup")
 setup1.SendCommand(Command='(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 1)')
-RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsysWorkbench/software/scripts/Fluent/script/calcu_run.py")
 setup1.SendCommand(Command='/file/set-tui-version "21.2"')
-Save(Overwrite=True)

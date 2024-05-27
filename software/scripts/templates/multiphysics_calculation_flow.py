@@ -1,9 +1,45 @@
 # encoding: utf-8
 # 2021 R2
+import os
+import re
 file_mat_FEM = r"D:\GuoHB\MyFiles\Code\PyAnsysWorkbench\constant\my_mats3.0.xml"
 script_path = {}
+journal = os.path.join(GetUserFilesDirectory(), "journal.txt")
+ansys_events = {
+    "system_building": "【{current_stage}/{all_stage}】 创建计算系统中\n",
+    "geo_building": "【{current_stage}/{all_stage}】 计算系统创建结束，开始创建几何\n",
+    "CFD_meshing": "【{current_stage}/{all_stage}】 几何创建结束，开展CFD网格划分中\n",
+    "CFD_running": "【{current_stage}/{all_stage}】 CFD网格划分结束，开展CFD计算中\n",
+    "thermal_load_importing": "【{current_stage}/{all_stage}】 CFD计算结束，创建温度载荷中\n",
+    "Mechanical_running": "【{current_stage}/{all_stage}】 温度载荷创建结束，开展固体域力学分析中\n",
+    "Mechanical_runned": "【{current_stage}/{all_stage}】 固体域力学分析结束\n"
+}
+def simulation_record(journal_file, journal_content):
+    try:
+        with open(journal_file, 'a') as f:
+            f.write(journal_content)
+            f.flush()  # 确保数据被立即写入文件
+            return True
+    except:
+        return False
+
+def update_progress(stage_key):
+    global current_stage
+    current_stage += 1
+    journal_content = ansys_events[stage_key].format(current_stage=current_stage, all_stage=len(ansys_events))
+    if current_stage == 1:
+        if os.path.exists(journal):
+            os.remove(journal)
+    simulation_record(journal, journal_content)
+
+current_stage  = 0
+""" ========================================== 执行脚本命令  =========================================="""
+
 
 """系统创建"""
+# 进度记录
+update_progress("system_building")
+# 执行
 SetScriptVersion(Version="21.2.209")
 system_CFD = GetTemplate(TemplateName="Fluid Flow").CreateSystem()
 geoComp = system_CFD.GetComponent(Name="Geometry")
@@ -14,7 +50,11 @@ setupComp_data = system_data.GetComponent(Name="Setup")
 setupComp_FEM = system_FEM.GetComponent(Name="Setup")
 setupComp_data.TransferData(TargetComponent=setupComp_FEM)
 
+
 """创建几何"""
+# 进度记录
+update_progress("geo_building")
+# 执行
 def get_geo_file(script_path, search_key_str = "geo_file_path"):
     with open(script_path, 'r') as file:
         lines = file.readlines()
@@ -35,7 +75,11 @@ geo.SetFile(FilePath=get_geo_file(script_path["geo_content"]))
 geometryProperties1 = geo.GetGeometryProperties()
 geometryProperties1.GeometryImportAnalysisType = "AnalysisType_2D"
 
+
 """CFD 网格划分"""
+# 进度记录
+update_progress("CFD_meshing")
+# 执行
 meshComp_CFD = system_CFD.GetComponent(Name="Mesh")
 meshComp_CFD.Refresh()
 mesh_CFD = system_CFD.GetContainer(ComponentName="Mesh")
@@ -46,7 +90,14 @@ cfdmesh_command = 'WB.AppletList.Applet("DSApplet").App.Script.doToolsRunMacro("
 mesh_CFD.SendCommand(Command=cfdmesh_command)
 mesh_CFD.Exit()
 meshComp_CFD.Update(AllDependencies=True)
+
+
+
+
 """CFD 求解计算"""
+# 进度记录
+update_progress("CFD_running")
+# 执行
 # 1. 启动
 core_nums = 12
 setupComp_CFD = system_CFD.GetComponent(Name="Setup")
@@ -57,21 +108,25 @@ fluentLauncherSettings.SetEntityProperties(Properties=Set(Precision="Double",
       EnvPath={}, RunParallel=True, NumberOfProcessorsMeshing=core_nums, NumberOfProcessors=core_nums))
 #setup_CFD.Edit(Interactive=False)
 setup_CFD.Edit()
+
 # 2. 运行计算
 tui_command = '/file/read-journal \"{}\" yes yes'.format(script_path["fluent_content"])
 setup_CFD.SendCommand(Command='/file/set-tui-version "21.2"')
-setup_CFD.SendCommand(Command=tui_command)
+try:
+    setup_CFD.SendCommand(Command=tui_command)
+except:
+    setup_CFD.Exit()
 setup_CFD.Exit()
 
 """导入材料数据"""
-
 engineeringData = system_FEM.GetContainer(ComponentName="Engineering Data")
 engineeringData.Import(Source=file_mat_FEM)
 
 """导入温度载荷"""
+# 进度记录
+update_progress("thermal_load_importing")
+# 执行
 # 1. 获取Fluent导出的温度数据路径
-import os
-import re
 def get_cfd_folder(setupComp_CFD):
     prj_files = GetAllFiles()
     cfd_file = setupComp_CFD.DirectoryName
@@ -125,9 +180,16 @@ for column_type, column_data in zip(column_types, cfd_temp_property.ColumnsData)
         column_data.Unit = "K"
 setupComp_data.Update(AllDependencies=True)
 
+
+
 """静力学计算"""
+# 进度记录
+update_progress("Mechanical_running")
+# 执行
 setup_FEM = system_FEM.GetContainer(ComponentName="Setup")
 setup_FEM.Edit()
 mechanical_command = 'WB.AppletList.Applet("DSApplet").App.Script.doToolsRunMacro("%s")' \
                   % script_path["mechanical_content"].replace("\\", "/") # ansys存在bug，命令难以执行带“\”的路径，需转换为“/”
 setup_FEM.SendCommand(Command=mechanical_command)
+setup_FEM.Exit()
+

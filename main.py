@@ -482,7 +482,7 @@ class SimulationLogic(QObject):
         self.ansys_simulation.moveToThread(self.thread)
         # 运行ansys的模拟计算函数
        # self.thread.started.connect(self.ansys_simulation.simula_system_run)
-        self.thread.started.connect(self.ansys_simulation.simula_system_run)
+        self.thread.started.connect(self.ansys_simulation.simulation_run)
         self.thread.start()
     def buttons_status(self, button_statue=False):
         buttons = [self.ui.button_simulate_run,
