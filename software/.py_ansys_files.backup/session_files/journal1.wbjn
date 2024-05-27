@@ -8,3 +8,9 @@ string1 = Server.StartServer(
     PortMax=9200,
     WriteConnectionInfoFile=r"D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\aaS_WbId.txt")
 Save(Overwrite=True)
+RunScript(FilePath="D:/GuoHB/MyFiles/Code/PyAnsys2MoltenSaltTank/software/scripts/multiphysics_calculation_flow.py")
+system1 = GetSystem(Name="FFF")
+setup1 = system1.GetContainer(ComponentName="Setup")
+setup1.SendCommand(Command='(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 0)(cx-gui-do cx-activate-tab-index "NavigationPane*Frame1(TreeTab)" 1)')
+setup1.SendCommand(Command='/file/set-tui-version "21.2"')
+Save(Overwrite=True)
