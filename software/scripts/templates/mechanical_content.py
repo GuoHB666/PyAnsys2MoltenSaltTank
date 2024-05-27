@@ -1,100 +1,93 @@
 # encoding: utf-8
+
+"""===================================初始化===================================="""
 ns_lists = ['axis', 'wall_tank_inner', 'wall_base_bottom']
-body_mats = {}
+body_mats = {'ambient_soil': 'dry_sand', 'insulation1': 'magnesium_silicate', 'insulation2': 'glass_wool', 'base3': 'coarse_sand', 'base2': 'ceramsite_hm', 'base4': 'concrete_hm', 'base1': 'fine_gravel', 'base5': 'firebrick', 'tank': 'tp347h'}
 salt_inventory = 12900 # 熔盐液位，单位mm
 def select_by_ids(ids):
     ExtAPI.SelectionManager.ClearSelection()
     selection = ExtAPI.SelectionManager.CreateSelectionInfo(SelectionTypeEnum.GeometryEntities)
     selection.Ids = ids
     return selection
+
+
 def get_entity_ids(entity_type, body_name):
     result_ids = []
     for assembly in DataModel.GeoData.Assemblies:
         for part in assembly.Parts:
             for body in part.Bodies:
                 if body_name in body.Name:
-                    if entity_type == 'edge':
-                        for line in body.Edges:
-                            result_ids.append(line.Id)
-                    elif entity_type == 'face':
-                        for face in body.Faces:
-                            result_ids.append(face.Id)
-                    elif entity_type == 'body':
-                        result_ids.append(body.Id)
+                    entities = {'edge': body.Edges, 'face': body.Faces, 'body': [body]}
+                    result_ids.extend(entity.Id for entity in entities[entity_type])
     return result_ids
-def get_maxsize(vertice_ids,dimension,is_max=True):
+
+
+def get_maxsize(vertice_ids, dimension, is_max=True):
     coordinates = {
-        "X": [DataModel.GeoData.GeoEntityById(vertice_id).X for vertice_id in vertice_ids],
-        "Y": [DataModel.GeoData.GeoEntityById(vertice_id).Y for vertice_id in vertice_ids],
-        "Z": [DataModel.GeoData.GeoEntityById(vertice_id).Z for vertice_id in vertice_ids]
+        "X": [DataModel.GeoData.GeoEntityById(id).X for id in vertice_ids],
+        "Y": [DataModel.GeoData.GeoEntityById(id).Y for id in vertice_ids],
+        "Z": [DataModel.GeoData.GeoEntityById(id).Z for id in vertice_ids]
     }
     if dimension not in coordinates:
         raise ValueError("Invalid dimension. Use 'X', 'Y', or 'Z'.")
-    coordinate_list = coordinates[dimension]
-    return max(coordinate_list) if is_max else min(coordinate_list)
+    return max(coordinates[dimension]) if is_max else min(coordinates[dimension])
+
+
 # 单位转换：采用mm、Mpa
 ExtAPI.Application.ActiveUnitSystem = MechanicalUnitSystem.StandardNMM
 # 先统一清除
-## 不必要坐标变换
-if Model.PartTransformGroup:
-    for transform in Model.PartTransformGroup.Children:
-        transform.Delete()
-## 清除自动生成的连接关系
-for group in DataModel.GetObjectsByType(DataModelObjectCategory.ConnectionGroup):
-    group.Delete()
-## 网格方法
-for mesh in Model.Mesh.Children:
-    mesh.Delete()
-## 不必要 Name selection
-if Model.NamedSelections:
-    for ns in Model.NamedSelections.Children:
-        ns.Delete()
-## 不必要的边界条件
-undeleted_options = ["Setting", "Solution", "Load"]
+## 有固定规律的：不必要坐标变换、连接关系、网格方法、Name Selection
+collections = [
+    Model.PartTransformGroup.Children if Model.PartTransformGroup else [],
+    DataModel.GetObjectsByType(DataModelObjectCategory.ConnectionGroup),
+    Model.Mesh.Children,
+    Model.NamedSelections.Children if Model.NamedSelections else []
+]
+for collection in collections:
+    for item in collection:
+        item.Delete()
+## 不必要边界条件和后处理
+undeleted_options = ["Setting", "Solution", "Load", "Initial"]
 for analysis in DataModel.AnalysisList:
     for analysis_children in analysis.Children:
         if not any(undeleted_option in analysis_children.Name for undeleted_option in undeleted_options):
             analysis_children.Delete()
-## 清空不必要后处理
-analysis_mechanical = DataModel.AnalysisList[0]
-analysis_solution = analysis_mechanical.Solution
-for result in analysis_solution.Children:
-    if not result == analysis_solution.SolutionInformation:
-        result.Delete()
+        if "Solution" in analysis_children.Name:
+            for result in analysis_children.Children:
+                if not "Information" in result.Name:
+                    result.Delete()
 ## 不必要的温度载荷
-import_load_group = None
+import_load_groups = []
 for analysis in DataModel.AnalysisList:
     for analysis_children in analysis.Children:
         if "Load" in analysis_children.Name:
             import_load_group = analysis_children
+            import_load_groups.append(import_load_group)
             for import_load in import_load_group.Children:
                 import_load.Delete()
-            break
-thermal_load = import_load_group.AddImportedBodyTemperature() # ansys bug，无法插入温度载荷后马上给定几何。得等一会儿，因此自己把插入温度载荷放到前边
+#### ansys bug，无法插入温度载荷后马上给定几何。得等一会儿，因此自己把插入温度载荷放到前边
+thermal_loads = [import_load_groups[0].AddImportedBodyTemperature(), import_load_groups[1].AddImportedTemperature()]
 ## 不必要局部坐标
 for coordinate in Model.CoordinateSystems.Children:
     if "Global" not in coordinate.Name:
         coordinate.Delete()
-
+"""===================================开展计算===================================="""
 # 定义局部坐标
-local_coordinate_system = Model.CoordinateSystems.AddCoordinateSystem()
-local_coordinate_system.OriginDefineBy = CoordinateSystemAlignmentType.Fixed
-local_coordinate_system.OriginX = Quantity(0, "mm")
-local_coordinate_system.OriginY = Quantity(0, "mm")
-local_coordinate_system.PrimaryAxisDefineBy = CoordinateSystemAlignmentType.GlobalY
-local_coordinate_system.SecondaryAxisDefineBy = CoordinateSystemAlignmentType.GlobalX
+local_cs = Model.CoordinateSystems.AddCoordinateSystem()
+local_cs.OriginDefineBy = CoordinateSystemAlignmentType.Fixed
+local_cs.OriginX = Quantity(0, "mm")
+local_cs.OriginY = Quantity(0, "mm")
+local_cs.PrimaryAxisDefineBy = CoordinateSystemAlignmentType.GlobalY
+local_cs.SecondaryAxisDefineBy = CoordinateSystemAlignmentType.GlobalX
+
 # 坐标变换，y轴变成对称轴
 ## 先获得所有实体的id
-all_body_ids = []
-for assembly in DataModel.GeoData.Assemblies:
-    for part in assembly.Parts:
-        for body in part.Bodies:
-            all_body_ids.append(body.Id)
+all_body_ids = get_entity_ids('body', '')
 ## 进行坐标变换
 part_transform = Model.AddPartTransform()
 part_transform.Location = select_by_ids(all_body_ids)
 part_transform.DefineBy = PartTransformationDefinitionType.CoordinateSystem
-part_transform.TargetCoordinateSystem = local_coordinate_system
+part_transform.TargetCoordinateSystem = local_cs
 Model.PartTransformGroup.TransformGeometry()
 
 
@@ -104,30 +97,26 @@ geometry.Model2DBehavior = Model2DBehavior.AxiSymmetric
 
 
 # 边界命名
-## 对称轴
-ns = Model.AddNamedSelection()
-ns.Name =ns_lists[0]
-ns.ScopingMethod = GeometryDefineByType.Worksheet
-ns.GenerationCriteria.Add(None)
-ns.GenerationCriteria[0].EntityType = SelectionType.GeoEdge
-ns.GenerationCriteria[0].Criterion = SelectionCriterionType.LocationY
-ns.GenerationCriteria[0].Operator = SelectionOperatorType.Equal
-ns.GenerationCriteria[0].Value = Quantity('0 [m]')
-ns.GenerationCriteria[0].CoordinateSystem = local_coordinate_system
-ns.Generate()
-## 地基最底部
-ns = Model.AddNamedSelection()
-ns.Name =ns_lists[2]
-ns.ScopingMethod = GeometryDefineByType.Worksheet
-ns.GenerationCriteria.Add(None)
-ns.GenerationCriteria[0].EntityType = SelectionType.GeoEdge
-ns.GenerationCriteria[0].Criterion = SelectionCriterionType.LocationX
-ns.GenerationCriteria[0].Operator = SelectionOperatorType.Equal
-ns.GenerationCriteria[0].Value = Quantity('0 [m]')
-ns.GenerationCriteria[0].CoordinateSystem = local_coordinate_system
-ns.Generate()
-
-## 内壁面
+def add_named_selection(name, dimension, value, coordinate_system):
+    ns = Model.AddNamedSelection()
+    ns.Name = name
+    ns.ScopingMethod = GeometryDefineByType.Worksheet
+    ns.GenerationCriteria.Add(None)
+    ns.GenerationCriteria[0].EntityType = SelectionType.GeoEdge
+    ns.GenerationCriteria[0].Criterion = SelectionCriterionType.LocationY if dimension == 'Y' else SelectionCriterionType.LocationX
+    ns.GenerationCriteria[0].Operator = SelectionOperatorType.Equal
+    ns.GenerationCriteria[0].Value = Quantity('{} [m]'.format(value))
+    ns.GenerationCriteria[0].CoordinateSystem = coordinate_system
+    ns.Generate()
+def add_named_selection2(name, location_ids):
+    ns = Model.AddNamedSelection()
+    ns.Name = name
+    ns.Location = select_by_ids(location_ids)
+    ns.Generate()
+## 轴对称和地基最底面：都是采用 worksheet的方法
+add_named_selection(ns_lists[0], 'Y', 0, local_cs)  # Axis
+add_named_selection(ns_lists[2] , 'X', 0, local_cs)  # Base bottom
+## 内壁面命名
 tank_vertice_ids = []
 inventory_vertice_ids = []
 for assembly in DataModel.GeoData.Assemblies:
@@ -154,15 +143,11 @@ for assembly in DataModel.GeoData.Assemblies:
                             is_select = False
                     if is_select:
                         tank_edge_ids.append(edge.Id)
-### 读取现有Name Selection
-selected_ids = []
-for ns in Model.NamedSelections.Children:
-    selected_ids.extend(ns.Location.Ids)
-### 去除已有Name selection中的id
+selected_ids = [location_id for ns in Model.NamedSelections.Children for location_id in ns.Location.Ids]
 wall_tank_ids = [x for x in tank_edge_ids if x not in selected_ids]
-ns = Model.AddNamedSelection()
-ns.Name = ns_lists[1]
-ns.Location = select_by_ids(wall_tank_ids)
+### 命名
+add_named_selection2(ns_lists[1], wall_tank_ids)
+
 
 # 抑制不需要几何并进行相应材料给定
 unneed_bodies = ["insulation", "ambient", "inventory"]
@@ -171,12 +156,10 @@ for part in Model.Geometry.Children:
         if any(unneed_body in body.Name for unneed_body in unneed_bodies):
             body.Suppressed = True
         else:
-            matched_body_name = None
-            for file_name in body_mats:
-                if file_name in body.Name:
-                    matched_body_name = file_name
+            for body_short_name, mat_name in body_mats.items():
+                if body_short_name in body.Name:
+                    body.Material = mat_name
                     break
-            body.Material = body_mats[matched_body_name]
 # 接触关系
 ## 采用线-线接触方式，自动生成接触对
 connection_group = Model.Connections.AddConnectionGroup()
@@ -222,6 +205,12 @@ facemeshing.Location = select_by_ids(face_ids)
 ## 生成网格
 mesh.GenerateMesh()
 
+
+
+
+# 定义分析对象
+analysis_mechanical = DataModel.AnalysisList[0]
+analysis_thermal = DataModel.AnalysisList[1]
 # 给定边界条件
 ## 轴对称约束
 displacement = analysis_mechanical.AddDisplacement()
@@ -247,28 +236,38 @@ hydrostatic_pressure.YCoordinate = Quantity(salt_inventory, "mm")
 hydrostatic_pressure.Location = DataModel.GetObjectsByName(ns_lists[1])[0]
 hydrostatic_pressure.YComponent.Output.DiscreteValues = [Quantity(9.8, "m s^-2")]
 ## 温度载荷
+for thermal_load in thermal_loads:
+    thermal_load.Location = select_by_ids(all_body_ids)
+    thermal_load.ImportLoad()
 
-thermal_load.Location = select_by_ids(all_body_ids)
-import_load_group.ImportLoad()
 # 开始求解
+## 静力学分析
 analysis_setting = analysis_mechanical.AnalysisSettings
 analysis_setting.NewtonRaphsonOption = NewtonRaphsonType.Unsymmetric # 求解算法：改为非对称
 analysis_mechanical.Solve(True)
+## 热分析（仅用于导出温度场）
+analysis_thermal.Solve(True)
 
+"""===================================后处理===================================="""
 # 后处理
 ## 启用轴对称显示
-symmetry = Model.AddSymmetry()
-symmetry.PropertyByName("ExpansionType_1").InternalValue = 2 # 转为轴对称显示
-symmetry.PropertyByName("ExpansionNumRepeat_1").InternalValue = 10
+# symmetry = Model.AddSymmetry()
+# symmetry.PropertyByName("ExpansionType_1").InternalValue = 2 # 转为轴对称显示
+# symmetry.PropertyByName("ExpansionNumRepeat_1").InternalValue = 10
 
 ## 插入总位移和总应力显示
-total_deformation = analysis_solution.AddTotalDeformation()
+mechanical_analysis_solution = analysis_mechanical.Solution
+total_deformation = mechanical_analysis_solution.AddTotalDeformation()
 tank_id = get_entity_ids("body", "tank")
 total_deformation.Location = select_by_ids(tank_id)
-equivalent_stress = analysis_solution.AddEquivalentStress()
+equivalent_stress = mechanical_analysis_solution.AddEquivalentStress()
 equivalent_stress.Location = select_by_ids(tank_id)
-analysis_solution.EvaluateAllResults()
-
+mechanical_analysis_solution.EvaluateAllResults()
+## 插入温度场显示
+thermal_analysis_solution = analysis_thermal.Solution
+temperature = thermal_analysis_solution.AddTemperature()
+temperature.Location = select_by_ids(tank_id)
+thermal_analysis_solution.EvaluateAllResults()
 ## 导出
 import time
 import wbjn
@@ -289,7 +288,8 @@ def get_out_path(file_name):
 
 result_objs = {
     "deformation": total_deformation,
-    "stress": equivalent_stress
+    "stress": equivalent_stress,
+    "temperature": temperature
 }
 for file_name, result_obj in result_objs.items():
     result_obj.Activate()  # 激活对象，相当于选中

@@ -1,0 +1,45 @@
+# encoding: utf-8
+# 2021 R2
+SetScriptVersion(Version="21.2.209")
+system1 = GetSystem(Name="SYS")
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+engineeringDataComponent1 = system1.GetComponent(Name="Engineering Data")
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+system2 = template1.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent1],
+    Position="Right",
+    RelativeTo=system1)
+system3 = GetSystem(Name="SYS 1")
+setupComponent1 = system3.GetComponent(Name="Setup")
+setupComponent2 = system2.GetComponent(Name="Setup")
+setupComponent1.TransferData(TargetComponent=setupComponent2)
+modelComponent1 = system2.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model2 = system2.GetContainer(ComponentName="Model")
+model2.Edit()
+model2.Exit()
+model2.Edit()
+model2.Exit()
+system2.Delete()
+system1.Delete()
+Save(Overwrite=True)
+system4 = GetSystem(Name="FFF")
+geometryComponent2 = system4.GetComponent(Name="Geometry")
+system5 = template1.CreateSystem(
+    ComponentsToShare=[geometryComponent2],
+    Position="Below",
+    RelativeTo=system3)
+modelComponent2 = system5.GetComponent(Name="Model")
+modelComponent2.Refresh()
+model3 = system5.GetContainer(ComponentName="Model")
+model3.Edit()
+model3.Exit()
+Save(Overwrite=True)
+system4.Delete()
+system3.Delete()
+Save(Overwrite=True)

@@ -1,0 +1,25 @@
+/COM,ANSYS RELEASE 2021 R2           BUILD 21.2      UP20210601       23:15:06
+
+ *** WARNING ***                         CP =       1.953   TIME= 23:15:07
+ Material property ALPX of material 8 is evaluated at a temperature of   
+ 22, which is below the supplied temperature range.  Temperature range   
+ checking terminates.                                                    
+
+ *** WARNING ***                         CP =       4.156   TIME= 23:15:08
+ Element shape checking is currently inactive.  Issue SHPP,ON or         
+ SHPP,WARN to reactivate, if desired.                                    
+
+ *** WARNING ***                         CP =       4.703   TIME= 23:15:08
+ Material number 13 (used by element 48411) should normally have at      
+ least one MP or one TB type command associated with it.  Output of      
+ energy by material may not be available.                                
+
+ *** WARNING ***                         CP =       5.766   TIME= 23:15:11
+ Material property EX of material 3 of element 7088 is evaluated at a    
+ temperature of 33.4962775, which is below the supplied temperature      
+ range.  Temperature range checking terminates.                          
+
+ *** WARNING ***                         CP =      10.328   TIME= 23:15:18
+ Contact element 48394 (real ID 11) has too much sliding distance        
+ 14.14138 relative to target element 48404.  Switch to finite sliding    
+ logic (KEYOPT(18)=0) to better represent this situation if desired.     

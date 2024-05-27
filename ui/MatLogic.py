@@ -16,7 +16,7 @@ class MatLogic(QObject):
             "ambient_soil": "dry_sand",
             "insulation1": "magnesium_silicate",
             "insulation2": "glass_wool" ,
-            "base3": "gravel",
+            "base3": "coarse_sand",
             "base2": "ceramsite_hm",
             "base4": "concrete_hm",
             "base1": "fine_gravel",

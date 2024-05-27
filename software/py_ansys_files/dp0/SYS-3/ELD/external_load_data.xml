@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ExternalLoadData CurrentVersion="2" ImportType="By Copy">
+  <FilesData Count="1">
+    <FileData CurrentVersion="4" Description="" Master="False" PathType="RelativePath" Location="H12.9.txt">
+      <FileDataProperty CurrentVersion="4" FileIdentifier="File1" Dimensions="2D" StartImportAtLine="1" FormatType="Delimited" FormatString="" DelimiterType="Comma" DelimiterCharacter="," SectionName="" LengthUnit="m" CoordinateSystemType="Cartesian" OriginX="0" OriginXUnit="mm" OriginY="0" OriginYUnit="mm" OriginZ="0" OriginZUnit="mm" ThetaXY="90" ThetaXYUnit="degree" ThetaYZ="180" ThetaYZUnit="degree" ThetaZX="0" ThetaZXUnit="radian" MorphX="x" MorphY="y" MorphZ="z" ConversionOption="NoConversion" MaterialFieldData="False" DummyNetData="False">
+        <ColumnsData Count="4">
+          <ColumnData CurrentVersion="2" DataType="Node ID" Unit="" Identifier="" QuantityType="Dimensionless" />
+          <ColumnData CurrentVersion="2" DataType="X Coordinate" Unit="m" Identifier="" QuantityType="Length" />
+          <ColumnData CurrentVersion="2" DataType="Y Coordinate" Unit="m" Identifier="" QuantityType="Length" />
+          <ColumnData CurrentVersion="2" DataType="Temperature" Unit="K" Identifier="Temperature1" QuantityType="Temperature" />
+        </ColumnsData>
+        <SupportFiles Count="0" />
+      </FileDataProperty>
+    </FileData>
+  </FilesData>
+</ExternalLoadData>

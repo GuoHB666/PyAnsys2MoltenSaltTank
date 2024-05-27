@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimulationExternalLoads>
+
+  <SimulationExternalLoad>
+    <Source>
+      <FEModel>
+        <Name/>
+        <Location/>
+        <Units>
+          <Unit>
+            <Name/>
+          </Unit>
+        </Units>
+      </FEModel>
+      <FieldData>
+        <Name/>
+        <Location>D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\py_ansys_files\dp0\SYS-8\MECH\Setup 9\external_load_data.xml</Location>
+        <Units>
+          <Unit>
+            <Name/>
+          </Unit>
+        </Units>
+        <Index>1</Index>
+        <Time>0</Time>
+      </FieldData>
+    </Source>
+    <Target>
+      <FEModel>
+        <Name>405</Name>
+        <Units system="SI">
+          <Unit>
+            <Name>m</Name>
+          </Unit>
+        </Units>
+      </FEModel>
+      <FieldData>
+        <Name>TODO - Field Name</Name>
+        <Location>D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\py_ansys_files\dp0\SYS-8\MECH\Import_Output_403_9CCA.xml</Location>
+        <Units system="SI">
+          <Unit>
+            <Name>°C</Name>
+          </Unit>
+        </Units>
+        <Time>1</Time>
+      </FieldData>
+      <Diagnostic>D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\py_ansys_files\dp0\SYS-8\MECH\Import_Diagnostics_403.htm</Diagnostic>
+    </Target>
+  </SimulationExternalLoad>
+
+</SimulationExternalLoads>

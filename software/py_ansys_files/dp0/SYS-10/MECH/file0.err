@@ -1,0 +1,48 @@
+/COM,ANSYS RELEASE 2021 R2           BUILD 21.2      UP20210601       23:15:43
+
+ *** WARNING ***                         CP =       1.734   TIME= 23:15:44
+ Material property ALPX of material 8 is evaluated at a temperature of   
+ 0, which is below the supplied temperature range.  Temperature range    
+ checking terminates.                                                    
+
+ *** WARNING ***                         CP =       3.953   TIME= 23:15:45
+ Element shape checking is currently inactive.  Issue SHPP,ON or         
+ SHPP,WARN to reactivate, if desired.                                    
+
+ *** WARNING ***                         CP =       4.484   TIME= 23:15:45
+ Maximum friction coefficient 0.3 is defined in the model.  Switch to    
+ the unsymmetric solver (NROP,UNSYM) instead if convergence difficulty   
+ is encountered.                                                         
+
+ *** WARNING ***                         CP =       4.750   TIME= 23:15:46
+ Material property KXX of material 8 of element 42326 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.750   TIME= 23:15:46
+ Material property KXX of material 8 of element 41482 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 8 of element 39548 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 8 of element 32448 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 8 of element 16084 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 6 of element 3988 is evaluated at a   
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       5.047   TIME= 23:15:46
+ There are no active degrees of freedom.                                 

@@ -1,0 +1,177 @@
+# encoding: utf-8
+# 2021 R2
+SetScriptVersion(Version="21.2.209")
+system1 = GetSystem(Name="SYS")
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+template1 = GetTemplate(TemplateName="External Data")
+system2 = template1.CreateSystem(
+    Position="Left",
+    RelativeTo=system1)
+setupComponent1 = system2.GetComponent(Name="Setup")
+setupComponent2 = system1.GetComponent(Name="Setup")
+setupComponent1.TransferData(TargetComponent=setupComponent2)
+setup1 = system2.GetContainer(ComponentName="Setup")
+externalLoadFileData1 = setup1.AddDataFile(FilePath="D:/GuoHB/MyFiles/Simulation/HMStaticSimulation/Data/solid temperature/H12.9.txt")
+externalLoadFileDataProperty1 = externalLoadFileData1.GetDataProperty()
+externalLoadFileDataProperty1.SetDimensionType(Dimensions="Dimension2D")
+externalLoadFileDataProperty1.SetLengthUnit(Unit="m")
+SetUnitsDisplaySettings()
+externalLoadFileDataProperty1.ThetaXY = 0
+externalLoadFileDataProperty1.ThetaXYUnit = "degree"
+externalLoadFileDataProperty1.ThetaYZ = 0
+externalLoadFileDataProperty1.ThetaYZUnit = "degree"
+externalLoadFileDataProperty1.ThetaXY = 90
+externalLoadFileDataProperty1.ThetaYZ = 180
+externalLoadColumnData1 = externalLoadFileDataProperty1.GetColumnData(Name="ExternalLoadColumnData")
+externalLoadFileDataProperty1.SetColumnDataType(
+    ColumnData=externalLoadColumnData1,
+    DataType="Node ID")
+externalLoadColumnData2 = externalLoadFileDataProperty1.GetColumnData(Name="ExternalLoadColumnData 1")
+externalLoadFileDataProperty1.SetColumnDataType(
+    ColumnData=externalLoadColumnData2,
+    DataType="X Coordinate")
+externalLoadColumnData3 = externalLoadFileDataProperty1.GetColumnData(Name="ExternalLoadColumnData 2")
+externalLoadFileDataProperty1.SetColumnDataType(
+    ColumnData=externalLoadColumnData3,
+    DataType="Y Coordinate")
+externalLoadColumnData4 = externalLoadFileDataProperty1.GetColumnData(Name="ExternalLoadColumnData 3")
+externalLoadFileDataProperty1.SetColumnDataType(
+    ColumnData=externalLoadColumnData4,
+    DataType="Temperature")
+externalLoadColumnData4.Unit = "K"
+Save(Overwrite=True)
+setupComponent1.Update(AllDependencies=True)
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+setupComponent2.Refresh()
+setup2 = system1.GetContainer(ComponentName="Setup")
+setup2.Edit()
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+engineeringData1.Import(
+    Source="D:/GuoHB/MyFiles/Code/PyAnsysWorkbench/constant/mat_FEM_solid.xml",
+    Company="ANSYS",
+    ProviderName="Disk")
+Save(Overwrite=True)
+modelComponent1.Update(AllDependencies=True)
+EngData.EnableFilter(Enable=False)
+material1 = engineeringData1.GetMaterial(Name="dry_sand")
+material1.DisplayName = "soil"
+material1.DisplayName = "dry_sand"
+model1.Exit()
+template2 = GetTemplate(TemplateName="Fluid Flow")
+system3 = template2.CreateSystem()
+template3 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+geometryComponent1 = system3.GetComponent(Name="Geometry")
+system4 = template3.CreateSystem(
+    ComponentsToShare=[geometryComponent1],
+    Position="Right",
+    RelativeTo=system3)
+system5 = template1.CreateSystem(
+    Position="Left",
+    RelativeTo=system4)
+setupComponent3 = system5.GetComponent(Name="Setup")
+setupComponent4 = system4.GetComponent(Name="Setup")
+setupComponent3.TransferData(TargetComponent=setupComponent4)
+template4 = GetTemplate(
+    TemplateName="Steady-State Thermal",
+    Solver="ANSYS")
+engineeringDataComponent1 = system4.GetComponent(Name="Engineering Data")
+geometryComponent2 = system4.GetComponent(Name="Geometry")
+modelComponent2 = system4.GetComponent(Name="Model")
+system6 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system4)
+system6.Delete()
+
+
+
+
+
+
+system7 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system4)
+system7.Delete()
+system8 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent1, geometryComponent2, modelComponent2],
+    Position="Right",
+    RelativeTo=system4)
+setupComponent5 = system8.GetComponent(Name="Setup")
+setupComponent3.TransferData(TargetComponent=setupComponent5)
+system9 = template4.CreateSystem()
+system10 = template2.CreateSystem()
+geometryComponent3 = system10.GetComponent(Name="Geometry")
+system11 = template3.CreateSystem(
+    ComponentsToShare=[geometryComponent3],
+    Position="Right",
+    RelativeTo=system10)
+system12 = template1.CreateSystem(
+    Position="Left",
+    RelativeTo=system11)
+setupComponent6 = system12.GetComponent(Name="Setup")
+setupComponent7 = system11.GetComponent(Name="Setup")
+setupComponent6.TransferData(TargetComponent=setupComponent7)
+engineeringDataComponent2 = system11.GetComponent(Name="Engineering Data")
+modelComponent3 = system11.GetComponent(Name="Model")
+system13 = template4.CreateSystem(
+    ComponentsToShare=[engineeringDataComponent2, geometryComponent3, modelComponent3],
+    Position="Right",
+    RelativeTo=system11)
+setupComponent8 = system13.GetComponent(Name="Setup")
+setupComponent6.TransferData(TargetComponent=setupComponent8)
+Save(Overwrite=True)
+system9.Delete()
+system3.Delete()
+system5.Delete()
+system4.Delete()
+system8.Delete()
+Save(Overwrite=True)
+geometry1 = system10.GetContainer(ComponentName="Geometry")
+geometry1.Edit(
+    Interactive=False,
+    IsSpaceClaimGeometry=True)
+geometry1.RunScript(ScriptFile=r"D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\scripts\geo_content.py")
+geometry1.Exit()
+geometry1.SetFile(FilePath="D:/GuoHB/MyFiles/Code/PyAnsys2MoltenSaltTank/software/geometry/geo.scdoc")
+geometryProperties1 = geometry1.GetGeometryProperties()
+geometryProperties1.GeometryImportAnalysisType = "AnalysisType_2D"
+engineeringData2 = system11.GetContainer(ComponentName="Engineering Data")
+engineeringData2.Import(Source="D:/GuoHB/MyFiles/Code/PyAnsys2MoltenSaltTank/constant/mat_FEM_solid.xml")
+setup3 = system12.GetContainer(ComponentName="Setup")
+externalLoadFileData2 = setup3.AddDataFile(FilePath="D:/GuoHB/MyFiles/Code/PyAnsys2MoltenSaltTank/software/py_ansys_files/dp0/FFF-2/Fluent/CFD_Temp_600.txt")
+externalLoadFileDataProperty2 = externalLoadFileData2.GetDataProperty()
+externalLoadFileDataProperty2.SetDimensionType(Dimensions="Dimension2D")
+externalLoadFileData2.SetStartImportAtLine(
+    FileDataProperty=externalLoadFileDataProperty2,
+    LineNumber=2)
+externalLoadFileDataProperty2.SetLengthUnit(Unit="m")
+externalLoadFileDataProperty2.ThetaXYUnit = "degree"
+externalLoadFileDataProperty2.ThetaYZUnit = "degree"
+externalLoadFileDataProperty2.ThetaXY = 90
+externalLoadFileDataProperty2.ThetaYZ = 180
+externalLoadColumnData5 = externalLoadFileDataProperty2.GetColumnData(Name="ExternalLoadColumnData")
+externalLoadFileDataProperty2.SetColumnDataType(
+    ColumnData=externalLoadColumnData5,
+    DataType="Node ID")
+externalLoadColumnData6 = externalLoadFileDataProperty2.GetColumnData(Name="ExternalLoadColumnData 1")
+externalLoadFileDataProperty2.SetColumnDataType(
+    ColumnData=externalLoadColumnData6,
+    DataType="X Coordinate")
+externalLoadColumnData7 = externalLoadFileDataProperty2.GetColumnData(Name="ExternalLoadColumnData 2")
+externalLoadFileDataProperty2.SetColumnDataType(
+    ColumnData=externalLoadColumnData7,
+    DataType="Y Coordinate")
+externalLoadColumnData8 = externalLoadFileDataProperty2.GetColumnData(Name="ExternalLoadColumnData 3")
+externalLoadFileDataProperty2.SetColumnDataType(
+    ColumnData=externalLoadColumnData8,
+    DataType="Temperature")
+externalLoadColumnData8.Unit = "K"
+setupComponent6.Update(AllDependencies=True)
+setup4 = system11.GetContainer(ComponentName="Setup")
+setup4.Edit()
+setup4.SendCommand(Command='WB.AppletList.Applet("DSApplet").App.Script.doToolsRunMacro("D:/GuoHB/MyFiles/Code/PyAnsys2MoltenSaltTank/software/scripts/mechanical_content.py")')

@@ -2,8 +2,8 @@
 # 2021 R2
 import os
 import re
-file_mat_FEM = r"D:\GuoHB\MyFiles\Code\PyAnsysWorkbench\constant\my_mats3.0.xml"
-script_path = {}
+file_mat_FEM =  r"D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\constant\mat_FEM_solid.xml"
+script_path = {'geo_content': 'D:\\GuoHB\\MyFiles\\Code\\PyAnsys2MoltenSaltTank\\software\\scripts\\geo_content.py', 'fluent_content': 'D:\\GuoHB\\MyFiles\\Code\\PyAnsys2MoltenSaltTank\\software\\scripts\\fluent_content.jou', 'mechanical_content': 'D:\\GuoHB\\MyFiles\\Code\\PyAnsys2MoltenSaltTank\\software\\scripts\\mechanical_content.py', 'fluent_meshing_content': 'D:\\GuoHB\\MyFiles\\Code\\PyAnsys2MoltenSaltTank\\software\\scripts\\fluent_meshing_content.py', 'multiphysics_calculation_flow': 'D:\\GuoHB\\MyFiles\\Code\\PyAnsys2MoltenSaltTank\\software\\scripts\\multiphysics_calculation_flow.py'}
 journal = os.path.join(GetUserFilesDirectory(), "journal.txt")
 ansys_events = {
     "system_building": "【{current_stage}/{all_stage}】 创建计算系统中\n",
@@ -43,12 +43,22 @@ update_progress("system_building")
 SetScriptVersion(Version="21.2.209")
 system_CFD = GetTemplate(TemplateName="Fluid Flow").CreateSystem()
 geoComp = system_CFD.GetComponent(Name="Geometry")
-system_FEM = GetTemplate(TemplateName="Static Structural", Solver="ANSYS").CreateSystem(
+system_mechanical = GetTemplate(TemplateName="Static Structural", Solver="ANSYS").CreateSystem(
     ComponentsToShare=[geoComp], Position="Right", RelativeTo=system_CFD)
-system_data = GetTemplate(TemplateName="External Data").CreateSystem(Position="Left", RelativeTo=system_FEM)
+system_data = GetTemplate(TemplateName="External Data").CreateSystem(Position="Left", RelativeTo=system_mechanical)
 setupComp_data = system_data.GetComponent(Name="Setup")
-setupComp_FEM = system_FEM.GetComponent(Name="Setup")
+setupComp_FEM = system_mechanical.GetComponent(Name="Setup")
 setupComp_data.TransferData(TargetComponent=setupComp_FEM)
+
+
+engineeringData = system_mechanical.GetComponent(Name="Engineering Data")
+modelComp = system_mechanical.GetComponent(Name="Model")
+system_thermal = GetTemplate(TemplateName="Steady-State Thermal", Solver="ANSYS").CreateSystem(
+    ComponentsToShare=[engineeringData, geoComp, modelComp],
+    Position="Right",
+    RelativeTo=system_mechanical)
+setupComp_thermal = system_thermal.GetComponent(Name="Setup")
+setupComp_data.TransferData(TargetComponent=setupComp_thermal)
 
 
 """创建几何"""
@@ -119,7 +129,7 @@ except:
 setup_CFD.Exit()
 
 """导入材料数据"""
-engineeringData = system_FEM.GetContainer(ComponentName="Engineering Data")
+engineeringData = system_mechanical.GetContainer(ComponentName="Engineering Data")
 engineeringData.Import(Source=file_mat_FEM)
 
 """导入温度载荷"""
@@ -186,7 +196,7 @@ setupComp_data.Update(AllDependencies=True)
 # 进度记录
 update_progress("Mechanical_running")
 # 执行
-setup_FEM = system_FEM.GetContainer(ComponentName="Setup")
+setup_FEM = system_mechanical.GetContainer(ComponentName="Setup")
 setup_FEM.Edit()
 mechanical_command = 'WB.AppletList.Applet("DSApplet").App.Script.doToolsRunMacro("%s")' \
                   % script_path["mechanical_content"].replace("\\", "/") # ansys存在bug，命令难以执行带“\”的路径，需转换为“/”

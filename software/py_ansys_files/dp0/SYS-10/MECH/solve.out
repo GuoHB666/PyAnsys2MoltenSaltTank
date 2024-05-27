@@ -1,0 +1,802 @@
+
+ Ansys Mechanical Enterprise                       
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *            ANSYS 2021 R2          LEGAL NOTICES             *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2021 ANSYS, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of ANSYS, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the ANSYS, Inc. online documentation or the ANSYS, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * ANSYS, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * ANSYS, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the ANSYS, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the ANSYS, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2021 R2 
+     
+ Point Releases and Patches installed:   
+     
+ ANSYS, Inc. Products 2021 R2
+ SpaceClaim 2021 R2  
+ Discovery 2021 R2   
+ ANSYS Sherlock 2021 R2  
+ Autodyn 2021 R2 
+ LS-DYNA 2021 R2 
+ CFD-Post only 2021 R2   
+ CFX (includes CFD-Post) 2021 R2 
+ Chemkin 2021 R2 
+ EnSight 2021 R2 
+ FENSAP-ICE 2021 R2  
+ Fluent (includes CFD-Post) 2021 R2  
+ Polyflow (includes CFD-Post) 2021 R2
+ Forte (includes EnSight) 2021 R2
+ TurboGrid 2021 R2   
+ ICEM CFD 2021 R2
+ Aqwa 2021 R2
+ Speos 2021 R2   
+ Additive 2021 R2
+ Customization Files for User Programmable Features 2021 R2  
+ Mechanical Products 2021 R2 
+ Icepak (includes CFD-Post) 2021 R2  
+ Remote Solve Manager Standalone Services 2021 R2
+ Speos HPC 2021 R2   
+ Speos for Creo Parametric 2021 R2   
+ Viewer 2021 R2  
+ VRX Sound - SAS 2021 R2 
+ ACIS Geometry Interface 2021 R2 
+ AutoCAD Geometry Interface 2021 R2  
+ Catia, Version 4 Geometry Interface 2021 R2 
+ Catia, Version 5 Geometry Interface 2021 R2 
+ Catia, Version 6 Geometry Interface 2021 R2 
+ Creo Elements/Direct Modeling Geometry Interface 2021 R2
+ Creo Parametric Geometry Interface 2021 R2  
+ Inventor Geometry Interface 2021 R2 
+ JTOpen Geometry Interface 2021 R2   
+ NX Geometry Interface 2021 R2   
+ Parasolid Geometry Interface  2021 R2   
+ Solid Edge Geometry Interface 2021 R2   
+ SOLIDWORKS Geometry Interface 2021 R2   
+ ANSYS, Inc. License Manager 2021 R2 
+
+
+          *****  ANSYS COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = NOLIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  DISTRIBUTED MEMORY PARALLEL REQUESTED
+       8 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C\dummy.dat
+  OUTPUT FILE NAME             = D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C\solve.out
+  START-UP FILE MODE           = NOREAD
+  STOP FILE MODE               = NOREAD
+
+ RELEASE= 2021 R2              BUILD= 21.2      UP20210601   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=file0  23:15:43  MAY 27, 2024 CP=      0.125
+
+
+ PARAMETER _DS_PROGRESS =     999.0000000    
+
+ /INPUT FILE= ds.dat  LINE=       0
+
+
+
+ *** NOTE ***                            CP =       0.172   TIME= 23:15:44
+ The /CONFIG,NOELDB command is not valid in a Distributed ANSYS          
+ solution.  Command is ignored.                                          
+
+ *GET  _WALLSTRT  FROM  ACTI  ITEM=TIME WALL  VALUE=  23.2622222    
+
+ TITLE= 
+ py_ansys--Steady-State Thermal (F5)                                           
+
+  ACT Extensions:
+      LSDYNA, 2021.1
+      5f463412-bd3e-484b-87e7-cbc0a665e474, wbex
+  
+
+ SET PARAMETER DIMENSIONS ON  _WB_PROJECTSCRATCH_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_PROJECTSCRATCH_DIR(1) = D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C\
+
+ SET PARAMETER DIMENSIONS ON  _WB_SOLVERFILES_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_SOLVERFILES_DIR(1) = D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\py_ansys_files\dp0\SYS-10\MECH\
+
+ SET PARAMETER DIMENSIONS ON  _WB_USERFILES_DIR
+  TYPE=STRI  DIMENSIONS=      248        1        1
+
+ PARAMETER _WB_USERFILES_DIR(1) = D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\py_ansys_files\user_files\
+ --- Data in consistent NMM units. See Solving Units in the help system for more
+
+ MPA UNITS SPECIFIED FOR INTERNAL    
+  LENGTH      = MILLIMETERS (mm)
+  MASS        = TONNE (Mg)
+  TIME        = SECONDS (sec)
+  TEMPERATURE = CELSIUS (C)
+  TOFFSET     = 273.0
+  FORCE       = NEWTON (N)
+  HEAT        = MILLIJOULES (mJ)
+
+ INPUT  UNITS ARE ALSO SET TO MPA 
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE 2021 R2          21.2     ***
+ DISTRIBUTED Ansys Mechanical Enterprise                       
+
+ 00000000  VERSION=WINDOWS x64   23:15:44  MAY 27, 2024 CP=      0.172
+
+ py_ansys--Steady-State Thermal (F5)                                           
+
+
+
+          ***** ANSYS ANALYSIS DEFINITION (PREP7) *****
+ *********** Nodes for the whole assembly ***********
+ *********** Elements for Body 1 "base3" ***********
+ *********** Elements for Body 2 "base5" ***********
+ *********** Elements for Body 3 "base4" ***********
+ *********** Elements for Body 4 "base4" ***********
+ *********** Elements for Body 5 "base4" ***********
+ *********** Elements for Body 6 "base2" ***********
+ *********** Elements for Body 7 "base1" ***********
+ *********** Elements for Body 8 "geo\tank" ***********
+ *********** Send User Defined Coordinate System(s) ***********
+ *********** Send Materials ***********
+
+ *** WARNING ***                         CP =       1.734   TIME= 23:15:44
+ Material property ALPX of material 8 is evaluated at a temperature of   
+ 0, which is below the supplied temperature range.  Temperature range    
+ checking terminates.                                                    
+ *********** Send Sheet Properties ***********
+ *********** Create Contact "Frictional - geo\tank To base3" ***********
+             Real Constant Set For Above Contact Is 10 & 9
+ *********** Create Contact "Frictional - geo\tank To base5" ***********
+             Real Constant Set For Above Contact Is 12 & 11
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ *********** Send Named Selection as Node Component ***********
+ ***************** Define Uniform Initial temperature ***************
+
+
+ ***** ROUTINE COMPLETED *****  CP =         1.906
+
+
+ --- Number of total nodes = 145138
+ --- Number of contact elements = 6064
+ --- Number of spring elements = 0
+ --- Number of bearing elements = 0
+ --- Number of solid elements = 42346
+ --- Number of condensed parts = 0
+ --- Number of total elements = 48410
+
+ *GET  _WALLBSOL  FROM  ACTI  ITEM=TIME WALL  VALUE=  23.2622222    
+ ****************************************************************************
+ *************************    SOLUTION       ********************************
+ ****************************************************************************
+
+ *****  ANSYS SOLUTION ROUTINE  *****
+
+
+ PERFORM A STATIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+ CONTACT INFORMATION PRINTOUT LEVEL       1
+
+ DO NOT SAVE ANY RESTART FILES AT ALL
+
+ DO NOT COMBINE ELEMENT MATRIX FILES (.emat) AFTER DISTRIBUTED PARALLEL SOLUTION
+
+ DO NOT COMBINE ELEMENT SAVE DATA FILES (.esav) AFTER DISTRIBUTED PARALLEL SOLUTION
+ ****************************************************
+ ******************* SOLVE FOR LS 1 OF 1 ****************
+ *********** Create Imported Load "Imported Temperature" ***********
+
+ PRINTOUT RESUMED BY /GOP
+
+ PRINTOUT RESUMED BY /GOP
+
+ USE AUTOMATIC TIME STEPPING THIS LOAD STEP
+
+ USE       1 SUBSTEPS INITIALLY THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+ FOR AUTOMATIC TIME STEPPING:
+   USE     10 SUBSTEPS AS A MAXIMUM
+   USE      1 SUBSTEPS AS A MINIMUM
+
+ TIME=  1.0000    
+
+ ERASE THE CURRENT DATABASE OUTPUT CONTROL TABLE.
+
+
+ WRITE ALL  ITEMS TO THE DATABASE WITH A FREQUENCY OF NONE
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE EANG ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE VENG ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE FFLU ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE CONT ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ CONVERGENCE ON HEAT BASED ON THE NORM OF THE N-R LOAD
+   WITH A TOLERANCE OF 0.1000E-02 AND A MINIMUM REFERENCE VALUE OF 0.1000E-02
+   USING THE L2 NORM (CHECK THE SRSS VALUE)
+
+ *GET  ANSINTER_  FROM  ACTI  ITEM=INT        VALUE=  0.00000000    
+
+ *IF  ANSINTER_                         ( =   0.00000     )  NE  
+      0                                 ( =   0.00000     )  THEN    
+
+ *ENDIF
+
+ *** NOTE ***                            CP =       3.875   TIME= 23:15:45
+ The automatic domain decomposition logic has selected the MESH domain   
+ decomposition method with 8 processes per solution.                     
+
+ *****  ANSYS SOLVE    COMMAND  *****
+
+ *** WARNING ***                         CP =       3.953   TIME= 23:15:45
+ Element shape checking is currently inactive.  Issue SHPP,ON or         
+ SHPP,WARN to reactivate, if desired.                                    
+
+ *** NOTE ***                            CP =       4.188   TIME= 23:15:45
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-ANSYS 5.0 interpretation.                          
+
+ *** NOTE ***                            CP =       4.234   TIME= 23:15:45
+ The model data was checked and warning messages were found.             
+  Please review output or errors file (                                  
+ D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\S 
+ Scr4D2C\file0.err ) for these warning messages.                         
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE 2021 R2          21.2     ***
+ DISTRIBUTED Ansys Mechanical Enterprise                       
+
+ 00000000  VERSION=WINDOWS x64   23:15:45  MAY 27, 2024 CP=      4.312
+
+ py_ansys--Steady-State Thermal (F5)                                           
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . TEMP
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .STATIC (STEADY-STATE)
+   OFFSET TEMPERATURE FROM ABSOLUTE ZERO . . . . .  273.15    
+   NEWTON-RAPHSON OPTION . . . . . . . . . . . . .PROGRAM CHOSEN   
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** NOTE ***                            CP =       4.422   TIME= 23:15:45
+ Property EX of material 3 is defined over a temperature range from 100  
+ to 600 which does not include the uniform temperature (22).  Change     
+ either temperature range or the uniform temperature.  Checking for      
+ this condition discontinues.                                            
+
+ *** NOTE ***                            CP =       4.438   TIME= 23:15:45
+ This nonlinear analysis defaults to using the full Newton-Raphson       
+ solution procedure.  This can be modified using the NROPT command.      
+
+ *** NOTE ***                            CP =       4.438   TIME= 23:15:45
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Symmetric Deformable- deformable contact pair identified by real        
+ constant set 9 and contact element type 9 has been set up.  The         
+ companion pair has real constant set ID 10.  Both pairs should have     
+ the same behavior.                                                      
+ ANSYS will deactivate the current pair and keep its companion pair,     
+ resulting in asymmetric contact.                                        
+ Pure thermal contact is activated.
+ The emissivity is defined through the material property.
+ Thermal convection coefficient, environment temperature, and
+  heat flux are defined using the SFE command.
+ Target temperature is used for convection/radiation calculation
+  for near field contact.
+ Small sliding logic is assumed
+ Contact detection at: Gauss integration point
+ Average contact surface length                3.6746    
+ Average contact pair depth                    3.6718    
+ User defined pinball region PINB              5.0000    
+ Initial penetration is excluded.
+ Thermal contact conductance coef. TCC         40.840    
+ Heat radiation is excluded.
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Max.  Initial penetration 4.452088696E-02 was detected between contact  
+ element 45309 and target element 48052.                                 
+ You may move entire target surface by : x= 0, y= -4.452088696E-02, z=   
+ 0,to reduce initial penetration.                                        
+ ****************************************
+  
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Symmetric Deformable- deformable contact pair identified by real        
+ constant set 10 and contact element type 9 has been set up.  The        
+ companion pair has real constant set ID 9.  Both pairs should have the  
+ same behavior.                                                          
+ ANSYS will keep the current pair and deactivate its companion pair,     
+ resulting in asymmetric contact.                                        
+ Pure thermal contact is activated.
+ The emissivity is defined through the material property.
+ Thermal convection coefficient, environment temperature, and
+  heat flux are defined using the SFE command.
+ Target temperature is used for convection/radiation calculation
+  for near field contact.
+ Small sliding logic is assumed
+ Contact detection at: Gauss integration point
+ Average contact surface length                39.529    
+ Average contact pair depth                    43.964    
+ User defined pinball region PINB              5.0000    
+ Initial penetration is excluded.
+ Thermal contact conductance coef. TCC         40.840    
+ Heat radiation is excluded.
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Max.  Initial penetration 3.251984718E-02 was detected between contact  
+ element 47799 and target element 42582.                                 
+ You may move entire target surface by : x= 1.265961603E-04, y=          
+ 3.251960076E-02, z= 0,to reduce initial penetration.                    
+ ****************************************
+  
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Symmetric Deformable- deformable contact pair identified by real        
+ constant set 11 and contact element type 11 has been set up.  The       
+ companion pair has real constant set ID 12.  Both pairs should have     
+ the same behavior.                                                      
+ ANSYS will keep the current pair and deactivate its companion pair,     
+ resulting in asymmetric contact.                                        
+ Pure thermal contact is activated.
+ The emissivity is defined through the material property.
+ Thermal convection coefficient, environment temperature, and
+  heat flux are defined using the SFE command.
+ Target temperature is used for convection/radiation calculation
+  for near field contact.
+ Small sliding logic is assumed
+ Contact detection at: Gauss integration point
+ Average contact surface length                6.9158    
+ Average contact pair depth                    6.5256    
+ User defined pinball region PINB              5.0000    
+ Initial penetration is excluded.
+ Thermal contact conductance coef. TCC         40.840    
+ Heat radiation is excluded.
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Min.  Initial gap 1.065814104E-13 was detected between contact element  
+ 48388 and target element 48405.                                         
+ ****************************************
+  
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Symmetric Deformable- deformable contact pair identified by real        
+ constant set 12 and contact element type 11 has been set up.  The       
+ companion pair has real constant set ID 11.  Both pairs should have     
+ the same behavior.                                                      
+ ANSYS will deactivate the current pair and keep its companion pair,     
+ resulting in asymmetric contact.                                        
+ Pure thermal contact is activated.
+ The emissivity is defined through the material property.
+ Thermal convection coefficient, environment temperature, and
+  heat flux are defined using the SFE command.
+ Target temperature is used for convection/radiation calculation
+  for near field contact.
+ Small sliding logic is assumed
+ Contact detection at: Gauss integration point
+ Average contact surface length                43.571    
+ Average contact pair depth                    37.113    
+ User defined pinball region PINB              5.0000    
+ Initial penetration is excluded.
+ Thermal contact conductance coef. TCC         40.840    
+ Heat radiation is excluded.
+
+ *** NOTE ***                            CP =       4.484   TIME= 23:15:45
+ Max.  Initial penetration 5.684341886E-13 was detected between contact  
+ element 48403 and target element 48308.                                 
+ ****************************************
+  
+
+ *** WARNING ***                         CP =       4.484   TIME= 23:15:45
+ Maximum friction coefficient 0.3 is defined in the model.  Switch to    
+ the unsymmetric solver (NROP,UNSYM) instead if convergence difficulty   
+ is encountered.                                                         
+  
+  
+
+  
+  
+     D I S T R I B U T E D   D O M A I N   D E C O M P O S E R
+  
+  ...Number of elements: 48410
+  ...Number of nodes:    145138
+  ...Decompose to 8 CPU domains
+  ...Element load balance ratio =     1.060
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   TIME AT END OF THE LOAD STEP. . . . . . . . . .  1.0000    
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .     1
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .    10
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     1
+   MAXIMUM NUMBER OF EQUILIBRIUM ITERATIONS. . . .    15
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .    NO
+   TERMINATE ANALYSIS IF NOT CONVERGED . . . . . .YES (EXIT)  
+   CONVERGENCE CONTROLS
+      LABEL   REFERENCE    TOLERANCE  NORM     MINREF
+       HEAT    0.000       0.1000E-02   2     0.1000E-02
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL       NONE               
+      NSOL        ALL               
+      RSOL        ALL               
+      EANG        ALL               
+      VENG        ALL               
+      FFLU        ALL               
+      CONT        ALL               
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+
+
+ *** WARNING ***                         CP =       4.750   TIME= 23:15:46
+ Material property KXX of material 8 of element 42326 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.750   TIME= 23:15:46
+ Material property KXX of material 8 of element 41482 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 8 of element 39548 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 8 of element 32448 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 8 of element 16084 is evaluated at a  
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+ *** WARNING ***                         CP =       4.812   TIME= 23:15:46
+ Material property KXX of material 6 of element 3988 is evaluated at a   
+ temperature of 22, which is below the supplied temperature range.       
+ Temperature range checking terminates.                                  
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =   1365.5    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.7567E+11   IXX =   0.6971E+11  RGX =    7145.    
+ YC =   2090.0       IYY =   0.1041E+12   IYY =   0.1041E+12  RGY =    8733.    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   214.743    
+     2   89.6002    
+     3   13.1319    
+     4   6.56593    
+     5  0.431969E-01
+     6   285.637    
+     7   525.495    
+     8   230.317    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 50081316.9 at element 47841.                                  
+ Minimum = 35.9521327 at element 411.                                    
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2024  PLANE293      0.016   0.000008
+        2       410  PLANE293      0.016   0.000038
+        3       140  PLANE293      0.000   0.000000
+        4       168  PLANE293      0.000   0.000000
+        5        84  PLANE293      0.031   0.000372
+        6      9128  PLANE293      0.234   0.000026
+        7      3663  PLANE293      0.094   0.000026
+        8     26729  PLANE293      0.375   0.000014
+        9      2979  CONTA172      0.031   0.000010
+       10      2979  TARGE169      0.000   0.000000
+       11        53  CONTA172      0.000   0.000000
+       12        53  TARGE169      0.000   0.000000
+ Time at end of element matrix formulation CP = 4.9375.                  
+     HT FLOW CONVERGENCE VALUE=   0.000      CRITERION=  0.2055E-05
+
+ *** WARNING ***                         CP =       5.047   TIME= 23:15:46
+ There are no active degrees of freedom.                                 
+    EQUIL ITER   1 COMPLETED.  NEW TRIANG MATRIX.  MAX DOF INC=   489.6    
+     HT FLOW CONVERGENCE VALUE=   0.000      CRITERION=  0.3671E+06 <<< CONVERGED
+    >>> SOLUTION CONVERGED AFTER EQUILIBRIUM ITERATION   1
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2024  PLANE293      0.031   0.000015
+        2       410  PLANE293      0.000   0.000000
+        3       140  PLANE293      0.000   0.000000
+        4       168  PLANE293      0.000   0.000000
+        5        84  PLANE293      0.000   0.000000
+        6      9128  PLANE293      0.203   0.000022
+        7      3663  PLANE293      0.031   0.000009
+        8     26729  PLANE293      0.328   0.000012
+        9      2979  CONTA172      0.000   0.000000
+       11        53  CONTA172      0.000   0.000000
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2024  PLANE293      0.047   0.000023
+        2       410  PLANE293      0.000   0.000000
+        3       140  PLANE293      0.000   0.000000
+        4       168  PLANE293      0.000   0.000000
+        5        84  PLANE293      0.000   0.000000
+        6      9128  PLANE293      0.047   0.000005
+        7      3663  PLANE293      0.016   0.000004
+        8     26729  PLANE293      0.203   0.000008
+        9      2979  CONTA172      0.031   0.000010
+       11        53  CONTA172      0.000   0.000000
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =   1.00000         TIME INC =   1.00000    
+
+
+ *** ANSYS BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        1.625 MB WRITTEN ON ELEMENT SAVED DATA FILE: file0.esav
+        2.000 MB WRITTEN ON ASSEMBLED MATRIX FILE: file0.full
+        4.938 MB WRITTEN ON RESULTS FILE: file0.rth
+ *************** Write FE CONNECTORS *********
+
+ WRITE OUT CONSTRAINT EQUATIONS TO FILE= file.ce                                                                                                                                                                                                                                                             
+ ****************************************************
+ *************** FINISHED SOLVE FOR LS 1 *************
+
+ *GET  _WALLASOL  FROM  ACTI  ITEM=TIME WALL  VALUE=  23.2630556    
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         5.688
+
+
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE 2021 R2          21.2     ***
+ DISTRIBUTED Ansys Mechanical Enterprise                       
+
+ 00000000  VERSION=WINDOWS x64   23:15:48  MAY 27, 2024 CP=      5.688
+
+ py_ansys--Steady-State Thermal (F5)                                           
+
+
+
+          ***** ANSYS RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       5.688   TIME= 23:15:48
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ Set Encoding of XML File to:ISO-8859-1
+
+ Set Output of XML File to:
+     PARM,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+         ,     ,     ,     ,     ,     ,     ,
+
+ DATABASE WRITTEN ON FILE  parm.xml                                                                                                                                                                                                                                                            
+
+ EXIT THE ANSYS POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =         5.688
+
+
+
+ PRINTOUT RESUMED BY /GOP
+
+ *GET  _WALLDONE  FROM  ACTI  ITEM=TIME WALL  VALUE=  23.2633333    
+
+ PARAMETER _PREPTIME =     0.000000000    
+
+ PARAMETER _SOLVTIME =     3.000000000    
+
+ PARAMETER _POSTTIME =     1.000000000    
+
+ PARAMETER _TOTALTIM =     4.000000000    
+
+ *GET  _DLBRATIO  FROM  ACTI  ITEM=SOLU DLBR  VALUE=  1.05971979    
+
+ *GET  _COMBTIME  FROM  ACTI  ITEM=SOLU COMB  VALUE= 0.176552800    
+
+ *GET  _SSMODE   FROM  ACTI  ITEM=SOLU SSMM  VALUE=  0.00000000    
+
+ *GET  _NDOFS    FROM  ACTI  ITEM=SOLU NDOF  VALUE=  0.00000000    
+ --- Total number of nodes = 145138
+ --- Total number of elements = 48410
+ --- Element load balance ratio = 1.05971979
+ --- Time to combine distributed files = 0.1765528
+ --- Sparse memory mode = 0
+ --- Number of DOF = 0
+
+ EXIT ANSYS WITHOUT SAVING DATABASE
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=         10
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------- D I S T R I B U T E D   A N S Y S   S T A T I S T I C S ------------+
+
+Release: 2021 R2            Build: 21.2       Update: UP20210601   Platform: WINDOWS x64 
+Date Run: 05/27/2024   Time: 23:15     Process ID: 20392
+Operating System: Windows 10  (Build: 22621)
+
+Processor Model: AMD Ryzen 7 7735HS with Radeon Graphics
+
+Compiler: Intel(R) FORTRAN Compiler Version 19.0.0  (Build: 20190206)
+          Intel(R) C/C++ Compiler Version 19.0.0  (Build: 20190206)
+          Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191125
+          BLAS Library supplied by AMD BLIS
+
+Number of machines requested            :    1
+Total number of cores available         :   16
+Number of physical cores available      :    8
+Number of processes requested           :    8
+Number of threads per process requested :    1
+Total number of cores requested         :    8 (Distributed Memory Parallel)               
+MPI Type: INTELMPI
+MPI Version: Intel(R) MPI Library 2019 Update 9 for Windows* OS
+
+
+GPU Acceleration: Not Requested
+
+Job Name: file0
+Input File: dummy.dat
+
+  Core                Machine Name   Working Directory
+ -----------------------------------------------------
+     0             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     1             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     2             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     3             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     4             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     5             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     6             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+     7             LAPTOP-2404Q07N   D:\GuoHB\MyFiles\Code\PyAnsys2MoltenSaltTank\software\_ProjectScratch\Scr4D2C
+ 
+Latency time from master to core     1 =    3.275 microseconds
+Latency time from master to core     2 =    2.792 microseconds
+Latency time from master to core     3 =    2.762 microseconds
+Latency time from master to core     4 =    2.867 microseconds
+Latency time from master to core     5 =    2.669 microseconds
+Latency time from master to core     6 =    2.654 microseconds
+Latency time from master to core     7 =    3.140 microseconds
+ 
+Communication speed from master to core     1 =  5031.16 MB/sec
+Communication speed from master to core     2 =  8899.77 MB/sec
+Communication speed from master to core     3 = 11077.42 MB/sec
+Communication speed from master to core     4 =  8471.70 MB/sec
+Communication speed from master to core     5 =  8767.03 MB/sec
+Communication speed from master to core     6 = 12071.83 MB/sec
+Communication speed from master to core     7 =  9384.05 MB/sec
+
+Total CPU time for main thread                    :        2.7 seconds
+Total CPU time summed for all threads             :        5.8 seconds
+
+Elapsed time spent obtaining a license            :        0.6 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.4 seconds
+Elapsed time spent solution - preprocessing       :        0.9 seconds
+Elapsed time spent computing solution             :        1.0 seconds
+Elapsed time spent solution - postprocessing      :        0.2 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+
+Maximum total memory used                         :      512.0 MB
+Maximum total memory allocated                    :     9280.0 MB
+Total physical memory available                   :         14 GB
+
+Total amount of I/O written to disk               :        0.1 GB
+Total amount of I/O read from disk                :        0.1 GB
+
++------ E N D   D I S T R I B U T E D   A N S Y S   S T A T I S T I C S -------+
+
+
+ *---------------------------------------------------------------------------*
+ |                                                                           |
+ |                       DISTRIBUTED ANSYS RUN COMPLETED                     |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Ansys 2021 R2               Build 21.2         UP20210601     WINDOWS x64 |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Database Requested(-db)  1024 MB    Scratch Memory Requested      1024 MB |
+ | Maximum Database Used     110 MB    Maximum Scratch Memory Used     73 MB |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ |        CP Time      (sec) =          5.844       Time  =  23:15:48        |
+ |        Elapsed Time (sec) =          6.000       Date  =  05/27/2024      |
+ |                                                                           |
+ *---------------------------------------------------------------------------*
